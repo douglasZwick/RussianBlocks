@@ -1,0 +1,34 @@
+class BoardController : ZilchComponent
+{
+  sends Gravity : GravityEvent;
+  
+  
+  [Property]
+  var GravityMagnitude : Real = 1;
+  [Property]
+  var GravityDirection : Real3 = -Real3.YAxis;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    var ge = GravityEvent();
+    ge.Magnitude = this.GravityMagnitude;
+    ge.Direction = this.GravityDirection;
+    ge.Dt = event.Dt;
+    this.Space.DispatchEvent(Events.Gravity, ge);
+  }
+}
+
+
+class GravityEvent : ZilchEvent
+{
+  var Magnitude : Real;
+  var Direction : Real3;
+  var Dt : Real;
+}

@@ -1,0 +1,8 @@
+[Version:1]
+ContentLibrary 
+{
+	var Name = "RussianBlocks"
+	var LibraryId = 0x5c1d8bfafa4b2ce4
+	var SourceControlType = ""
+	var ReadOnly = false
+}

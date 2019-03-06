@@ -1,0 +1,173 @@
+class PieceController : ZilchComponent
+{
+  [Dependency] var Transform : Transform;
+  
+  [Property][Group("Keys")]
+  var MoveLeftKey : Keys = Keys.Left;
+  [Property][Group("Keys")]
+  var MoveRightKey : Keys = Keys.Right;
+  [Property][Group("Keys")]
+  var RotateCWKey : Keys = Keys.D;
+  [Property][Group("Keys")]
+  var RotateCCWKey : Keys = Keys.S;
+  [Property][Group("Keys")]
+  var SoftDropKey : Keys = Keys.Down;
+  
+  [Property][Group("Paths")]
+  var GraphicalRootPath : CogPath = CogPath("GraphicalRoot");
+  [Property][Group("Paths")]
+  var ColliderRootPath : CogPath = CogPath("ColliderRoot");
+  
+  var GraphicalTransform : Transform;
+  var ColliderTransform : Transform;
+  var GraphicalActions : ActionSet;
+  var MovementActions : ActionGroup;
+  var RotationActions : ActionGroup;
+  
+  var MovementDuration : Real = 4 / 60.0 + 0.001;
+  var RotationDuration : Real = 4 / 60.0 + 0.001;
+  
+  var SoftDropGravityMagnitude : Real = 20;
+  
+  var GraphicalX : Real
+  {
+    get { return this.GraphicalTransform.WorldTranslation.X; }
+    
+    set
+    {
+      var worldTranslation = this.GraphicalTransform.WorldTranslation;
+      worldTranslation.X = value;
+      this.GraphicalTransform.WorldTranslation = worldTranslation;
+    }
+  }
+  
+  var GraphicalY : Real
+  {
+    get { return this.GraphicalTransform.WorldTranslation.Y; }
+    
+    set
+    {
+      var worldTranslation = this.GraphicalTransform.WorldTranslation;
+      worldTranslation.Y = value;
+      this.GraphicalTransform.WorldTranslation = worldTranslation;
+    }
+  }
+  
+  var ColliderX : Real
+  {
+    get { return this.ColliderTransform.WorldTranslation.X; }
+    
+    set
+    {
+      var worldTranslation = this.ColliderTransform.WorldTranslation;
+      worldTranslation.X = value;
+      this.ColliderTransform.WorldTranslation = worldTranslation;
+    }
+  }
+  
+  var ColliderY : Real
+  {
+    get { return this.ColliderTransform.WorldTranslation.Y; }
+    
+    set
+    {
+      var worldTranslation = this.ColliderTransform.WorldTranslation;
+      worldTranslation.Y = value;
+      this.ColliderTransform.WorldTranslation = worldTranslation;
+    }
+  }
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.GraphicalTransform = this.GraphicalRootPath.Transform;
+    this.ColliderTransform = this.ColliderRootPath.Transform;
+    this.GraphicalActions = this.GraphicalRootPath.Cog.Actions;
+    this.MovementActions = Action.Group(this.GraphicalRootPath.Cog.Actions);
+    this.RotationActions = Action.Group(this.GraphicalRootPath.Cog.Actions);
+    
+    Zero.Connect(this.Space, Events.Gravity, this.OnGravity);
+    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyInput);
+    Zero.Connect(Zero.Keyboard, Events.KeyRepeated, this.OnKeyInput);
+  }
+  
+  
+  function OnGravity(event : GravityEvent)
+  {
+    var magnitude = event.Magnitude;
+    
+    if (Zero.Keyboard.KeyIsDown(this.SoftDropKey))
+      magnitude = Math.Max(magnitude, this.SoftDropGravityMagnitude);
+    
+    this.GraphicalTransform.WorldTranslation += magnitude * event.Direction * event.Dt;
+    this.ColliderY = Math.Floor(this.GraphicalY);
+  }
+  
+  
+  function OnKeyInput(event : KeyboardEvent)
+  {
+    if      (event.Key == this.MoveLeftKey)
+      this.MoveLeft();
+    else if (event.Key == this.MoveRightKey)
+      this.MoveRight();
+    else if (event.Key == this.RotateCWKey)
+      this.RotateCW();
+    else if (event.Key == this.RotateCCWKey)
+      this.RotateCCW();
+  }
+  
+  
+  function MoveLeft()
+  {
+    var movement = -Real3.XAxis;
+    
+    this.MovementHelper(movement);
+  }
+  
+  
+  function MoveRight()
+  {
+    var movement = Real3.XAxis;
+    
+    this.MovementHelper(movement);
+  }
+  
+  
+  function RotateCW()
+  {
+    var angle = -Math.Pi / 2;
+    
+    this.RotationHelper(angle);
+  }
+  
+  
+  function RotateCCW()
+  {
+    var angle = Math.Pi / 2;
+    
+    this.RotationHelper(angle);
+  }
+  
+  
+  function MovementHelper(movement : Real3)
+  {
+    var targetPosition = this.ColliderTransform.WorldTranslation + movement;
+    var targetX = targetPosition.X;
+    this.ColliderTransform.WorldTranslation = targetPosition;
+    
+    this.MovementActions.Cancel();
+    this.MovementActions = Action.Group(this.GraphicalActions);
+    Action.Property(this.MovementActions, @this.GraphicalX, targetX, this.MovementDuration, Ease.Linear);
+  }
+  
+  
+  function RotationHelper(angle : Real)
+  {
+    var targetAngles = this.ColliderTransform.EulerAngles + angle * Real3.ZAxis;
+    this.ColliderTransform.EulerAngles = targetAngles;
+    
+    this.RotationActions.Cancel();
+    this.RotationActions = Action.Group(this.GraphicalActions);
+    Action.Property(this.RotationActions, @this.GraphicalTransform.EulerAngles, targetAngles, this.RotationDuration, Ease.Linear);
+  }
+}
