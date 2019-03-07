@@ -29,6 +29,8 @@ class PieceController : ZilchComponent
   
   var SoftDropGravityMagnitude : Real = 20;
   
+  var State : PieceControlState = PieceControlState.Active;
+  
   var GraphicalX : Real
   {
     get { return this.GraphicalTransform.WorldTranslation.X; }
@@ -107,45 +109,91 @@ class PieceController : ZilchComponent
   function OnKeyInput(event : KeyboardEvent)
   {
     if      (event.Key == this.MoveLeftKey)
-      this.MoveLeft();
+      this.AttemptMoveLeft();
     else if (event.Key == this.MoveRightKey)
-      this.MoveRight();
+      this.AttemptMoveRight();
     else if (event.Key == this.RotateCWKey)
-      this.RotateCW();
+      this.AttemptRotateCW();
     else if (event.Key == this.RotateCCWKey)
-      this.RotateCCW();
+      this.AttemptRotateCCW();
   }
   
   
-  function MoveLeft()
+  function AttemptMoveLeft()
   {
     var movement = -Real3.XAxis;
     
-    this.MovementHelper(movement);
+    this.MovementAttemptHelper(movement);
   }
   
   
-  function MoveRight()
+  function AttemptMoveRight()
   {
     var movement = Real3.XAxis;
     
-    this.MovementHelper(movement);
+    this.MovementAttemptHelper(movement);
   }
   
   
-  function RotateCW()
+  function AttemptRotateCW()
   {
     var angle = -Math.Pi / 2;
     
-    this.RotationHelper(angle);
+    this.RotationAttemptHelper(angle);
   }
   
   
-  function RotateCCW()
+  function AttemptRotateCCW()
   {
     var angle = Math.Pi / 2;
     
-    this.RotationHelper(angle);
+    this.RotationAttemptHelper(angle);
+  }
+  
+  
+  function MovementAttemptHelper(movement : Real3)
+  {
+    var collision = this.CollisionCheck(movement);
+    
+    if (!collision)
+      this.MovementHelper(movement);
+  }
+  
+  
+  function RotationAttemptHelper(angle : Real)
+  {
+    var originalAngles = this.ColliderTransform.EulerAngles;
+    this.ColliderTransform.EulerAngles = originalAngles + angle * Real3.ZAxis;
+    
+    var collision = this.CollisionCheck(Real3.Zero);
+    
+    if (collision)
+      this.ColliderTransform.EulerAngles = originalAngles;
+    else
+      this.RotationHelper(angle);
+  }
+  
+  
+  function CollisionCheck(offset : Real3) : Boolean
+  {
+    foreach (var child in this.ColliderTransform.Owner.Children)
+    {
+      var childRoot = child.FindRoot();
+      var collider = child.Collider;
+      var castResults = collider.Space.PhysicsSpace.CastCollider(offset, collider, CastFilter());
+      
+      foreach (var result in castResults)
+      {
+        var resultRoot = result.ObjectHit.FindRoot();
+        
+        if (resultRoot != childRoot)
+        {
+          return true;
+        }
+      }
+    }
+    
+    return false;
   }
   
   
@@ -163,11 +211,27 @@ class PieceController : ZilchComponent
   
   function RotationHelper(angle : Real)
   {
-    var targetAngles = this.ColliderTransform.EulerAngles + angle * Real3.ZAxis;
-    this.ColliderTransform.EulerAngles = targetAngles;
+    var targetAngles = this.GraphicalTransform.EulerAngles + angle * Real3.ZAxis;
     
     this.RotationActions.Cancel();
     this.RotationActions = Action.Group(this.GraphicalActions);
     Action.Property(this.RotationActions, @this.GraphicalTransform.EulerAngles, targetAngles, this.RotationDuration, Ease.Linear);
   }
+  
+  
+  function BecomeInactive()
+  {
+    this.State = PieceControlState.Inactive;
+    
+    Zero.Disconnect(this.Space, Events.Gravity, this);
+    Zero.Disconnect(Zero.Keyboard, Events.KeyDown, this);
+    Zero.Disconnect(Zero.Keyboard, Events.KeyRepeated, this);
+  }
+}
+
+
+enum PieceControlState
+{
+  Active,
+  Inactive,
 }
