@@ -7,11 +7,38 @@ class BoardController : ZilchComponent
   var GravityMagnitude : Real = 1;
   [Property]
   var GravityDirection : Real3 = -Real3.YAxis;
+  [Property]
+  var GridOriginPath : CogPath = CogPath("GridOrigin");
+  
+  var NewPieceSpawnPosition : Real3 = Real3(0, 10, 0);
+  var PieceArchetype : Archetype = Archetype.Piece;
+  var StaticSquareArchetype : Archetype = Archetype.StaticSquare;
+  
+  var GridSize : Integer2 = Integer2(10, 20);
+  var Grid : Array[Array[SquareData]];
+  var GridOrigin : Real3;
   
   
   function Initialize(init : CogInitializer)
   {
+    this.GridOrigin = this.GridOriginPath.Transform.WorldTranslation;
+    
+    this.Grid = Array[Array[SquareData]]();
+    
+    for (var i = 0; i < this.GridSize.Y; ++i)
+    {
+      var row = Array[SquareData]();
+      
+      for (var j = 0; j < this.GridSize.X; ++j)
+      {
+        row.Add(SquareData());
+      }
+      
+      this.Grid.Add(row);
+    }
+    
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    Zero.Connect(this.Space, Events.PieceStuck, this.OnPieceStuck);
   }
   
   
@@ -23,6 +50,118 @@ class BoardController : ZilchComponent
     ge.Dt = event.Dt;
     this.Space.DispatchEvent(Events.Gravity, ge);
   }
+  
+  
+  function OnPieceStuck(event : PieceEvent)
+  {
+    this.CreateStaticBlocks(event);
+    this.DestroyOldPiece(event);
+    this.CheckForSquares();
+    this.CheckForLines();
+    this.CheckForSquares();
+    this.CreateNewPiece();
+  }
+  
+  
+  function CreateStaticBlocks(event : PieceEvent)
+  {
+    foreach (var child in event.Piece.ColliderTransform.Owner.Children)
+    {
+      var childTransform = child.Transform;
+      var position = childTransform.WorldTranslation;
+      var angle = childTransform.EulerAngles.Z;
+      
+      var staticSquare = this.Space.CreateAtPosition(this.StaticSquareArchetype, position);
+      
+      var data = this.RotateData(child.Atom.Data, angle);
+      data.StaticSquare = staticSquare;
+      var index = this.WorldPositionToGridIndex(position);
+      this.Grid[index.X][index.Y] = data;
+    }
+  }
+  
+  
+  function DestroyOldPiece(event : PieceEvent)
+  {
+    event.Piece.Owner.Destroy();
+  }
+  
+  
+  function CheckForSquares()
+  {
+    
+  }
+  
+  
+  function CheckForLines()
+  {
+    
+  }
+  
+  
+  function CreateNewPiece()
+  {
+    var piece = this.Space.CreateAtPosition(this.PieceArchetype, this.NewPieceSpawnPosition);
+  }
+  
+  
+  function GridIndexToWorldPosition(index : Integer2) : Real3
+  {
+    return this.GridOrigin + Real3(index.X, index.Y, 0);
+  }
+  
+  
+  function WorldPositionToGridIndex(position : Real3) : Integer2
+  {
+    var shifted = position - this.GridOrigin;
+    return Integer2(shifted.X as Integer, shifted.Y as Integer);
+  }
+  
+  
+  function RotateData(data : SquareData, angle : Real) : SquareData
+  {
+    var output = SquareData();
+    output.Filled = true;
+    output.Type = data.Type;
+    var eighth = Math.Pi / 4;
+    
+    if      (eighth <= angle && angle < 3 * eighth)       // top quadrant
+    {
+      if (data.RtConnection)
+        output.UpConnection = true;
+      if (data.UpConnection)
+        output.LtConnection = true;
+      if (data.LtConnection)
+        output.DnConnection = true;
+      if (data.DnConnection)
+        output.RtConnection = true;
+    }
+    else if (3 * eighth <= angle || angle < -3 * eighth)  // left quadrant
+    {
+      if (data.RtConnection)
+        output.LtConnection = true;
+      if (data.UpConnection)
+        output.DnConnection = true;
+      if (data.LtConnection)
+        output.RtConnection = true;
+      if (data.DnConnection)
+        output.UpConnection = true;
+    }
+    else if (-3 * eighth <= angle && angle < -eighth)     // bottom quadrant
+    {
+      if (data.RtConnection)
+        output.DnConnection = true;
+      if (data.UpConnection)
+        output.RtConnection = true;
+      if (data.LtConnection)
+        output.UpConnection = true;
+      if (data.DnConnection)
+        output.LtConnection = true;
+    }
+    // else do nothing                                    // right quadrant
+    
+    return output;
+  }
 }
 
 
@@ -31,4 +170,16 @@ class GravityEvent : ZilchEvent
   var Magnitude : Real;
   var Direction : Real3;
   var Dt : Real;
+}
+
+
+class SquareData : ZilchObject
+{
+  [Property] var Filled : Boolean = false;
+  [Property] var RtConnection : Boolean = false;
+  [Property] var LtConnection : Boolean = false;
+  [Property] var UpConnection : Boolean = false;
+  [Property] var DnConnection : Boolean = false;
+  [Property] var Type : PieceType;
+  var StaticSquare : Cog = null;
 }

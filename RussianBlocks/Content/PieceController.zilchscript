@@ -1,6 +1,13 @@
 class PieceController : ZilchComponent
 {
+  sends PieceStuck : PieceEvent;
+  
+  
   [Dependency] var Transform : Transform;
+  
+  
+  [Property]
+  var Type : PieceType = PieceType.T;
   
   [Property][Group("Keys")]
   var MoveLeftKey : Keys = Keys.Left;
@@ -30,6 +37,8 @@ class PieceController : ZilchComponent
   var SoftDropGravityMagnitude : Real = 20;
   
   var State : PieceControlState = PieceControlState.Active;
+  
+  var CastFilter : CastFilter;
   
   var GraphicalX : Real
   {
@@ -82,6 +91,10 @@ class PieceController : ZilchComponent
   
   function Initialize(init : CogInitializer)
   {
+    this.CastFilter = CastFilter();
+    this.CastFilter.IgnoreKinematic = false;
+    this.CastFilter.IgnoreGhost = false;
+    
     this.GraphicalTransform = this.GraphicalRootPath.Transform;
     this.ColliderTransform = this.ColliderRootPath.Transform;
     this.GraphicalActions = this.GraphicalRootPath.Cog.Actions;
@@ -102,7 +115,18 @@ class PieceController : ZilchComponent
       magnitude = Math.Max(magnitude, this.SoftDropGravityMagnitude);
     
     this.GraphicalTransform.WorldTranslation += magnitude * event.Direction * event.Dt;
+    
+    var oldColliderY = this.ColliderY;
     this.ColliderY = Math.Floor(this.GraphicalY);
+    
+    var collision = this.CollisionCheck(Real3.Zero);
+    
+    if (collision)
+    {
+      this.ColliderY = oldColliderY;
+      this.GraphicalY = oldColliderY;
+      this.Stick();
+    }
   }
   
   
@@ -151,6 +175,16 @@ class PieceController : ZilchComponent
   }
   
   
+  function Stick()
+  {
+    this.BecomeInactive();
+    
+    var pe = PieceEvent();
+    pe.Piece = this;
+    this.Space.DispatchEvent(Events.PieceStuck, pe);
+  }
+  
+  
   function MovementAttemptHelper(movement : Real3)
   {
     var collision = this.CollisionCheck(movement);
@@ -180,7 +214,7 @@ class PieceController : ZilchComponent
     {
       var childRoot = child.FindRoot();
       var collider = child.Collider;
-      var castResults = collider.Space.PhysicsSpace.CastCollider(offset, collider, CastFilter());
+      var castResults = collider.Space.PhysicsSpace.CastCollider(offset, collider, this.CastFilter);
       
       foreach (var result in castResults)
       {
@@ -227,6 +261,24 @@ class PieceController : ZilchComponent
     Zero.Disconnect(Zero.Keyboard, Events.KeyDown, this);
     Zero.Disconnect(Zero.Keyboard, Events.KeyRepeated, this);
   }
+}
+
+
+class PieceEvent : ZilchEvent
+{
+  var Piece : PieceController;
+}
+
+
+enum PieceType
+{
+  I,
+  O,
+  T,
+  L,
+  J,
+  S,
+  Z,
 }
 
 

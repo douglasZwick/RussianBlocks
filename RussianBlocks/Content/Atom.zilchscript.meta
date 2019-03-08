@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "Atom"
+		var ResourceId = 0x5ce187cd19bfd98e
+	}
+}

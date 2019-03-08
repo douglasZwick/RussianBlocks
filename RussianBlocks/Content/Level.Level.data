@@ -77,7 +77,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{0.379317492, -1.5586561, 20}
+			var Translation = Real3{0, 0, 20}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -139,7 +139,7 @@ Level
 			var LookDistance = 20
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{0.379317492, -1.5586561, 1.65804792e-08}
+			var LookTarget = Real3{0, 0, 0}
 			var MoveSensitivity = 1
 		}
 	}
@@ -232,604 +232,324 @@ Level
 			var GravityMagnitude = 1
 			var GravityDirection = Real3{0, -1, 0}
 		}
+		Hierarchy 
+		{
+			Cog [Id:0x5ce19cc4f0036d8f][ContextId:6]
+			{
+				var Name = "Walls"
+				Transform 
+				{
+					var Translation = Real3{0, 0, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				Hierarchy 
+				{
+					Cog [Id:0x5ce19ccdf1b9ad57][ContextId:7]
+					{
+						var Name = "Wall"
+						Transform 
+						{
+							var Translation = Real3{-6.5, -0.5, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{1, 1, 1, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+						Area 
+						{
+							var Size = Real2{2, 20}
+							var Origin = Location.Center
+						}
+						BoxCollider 
+						{
+							var Ghost = false
+							var SendsEvents = true
+							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+							var CollisionGroup = "4e740859314e5515:DefaultGroup"
+							var Offset = Real3{0, 0, 0}
+							var HalfSize = Real3{1, 10, 0.5}
+						}
+					}
+					Cog [Id:0x5ce19ccdf1b9ad88][ContextId:8]
+					{
+						var Name = "Wall"
+						Transform 
+						{
+							var Translation = Real3{5.5, -0.5, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{1, 1, 1, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+						Area 
+						{
+							var Size = Real2{2, 20}
+							var Origin = Location.Center
+						}
+						BoxCollider 
+						{
+							var Ghost = false
+							var SendsEvents = true
+							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+							var CollisionGroup = "4e740859314e5515:DefaultGroup"
+							var Offset = Real3{0, 0, 0}
+							var HalfSize = Real3{1, 10, 0.5}
+						}
+					}
+					Cog [Id:0x5ce19ccdf1b9adab][ContextId:9]
+					{
+						var Name = "Wall"
+						Transform 
+						{
+							var Translation = Real3{-6.5, -11.5, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{1, 1, 1, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+						Area 
+						{
+							var Size = Real2{2, 2}
+							var Origin = Location.Center
+						}
+						BoxCollider 
+						{
+							var Ghost = false
+							var SendsEvents = true
+							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+							var CollisionGroup = "4e740859314e5515:DefaultGroup"
+							var Offset = Real3{0, 0, 0}
+							var HalfSize = Real3{1, 1, 0.5}
+						}
+					}
+					Cog [Id:0x5ce19ccdf1b9adcc][ContextId:10]
+					{
+						var Name = "Wall"
+						Transform 
+						{
+							var Translation = Real3{-0.5, -11.5, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{1, 1, 1, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+						Area 
+						{
+							var Size = Real2{10, 2}
+							var Origin = Location.Center
+						}
+						BoxCollider 
+						{
+							var Ghost = false
+							var SendsEvents = true
+							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+							var CollisionGroup = "4e740859314e5515:DefaultGroup"
+							var Offset = Real3{0, 0, 0}
+							var HalfSize = Real3{5, 1, 0.5}
+						}
+					}
+					Cog [Id:0x5ce19ccdf1b9aded][ContextId:11]
+					{
+						var Name = "Wall"
+						Transform 
+						{
+							var Translation = Real3{5.5, -11.5, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Sprite 
+						{
+							var Visible = true
+							var ViewCulling = true
+							var VisibilityEvents = true
+							var OverrideBoundingBox = false
+							var LocalAabbCenter = Real3{0, 0, 0}
+							var LocalAabbHalfExtents = Real3{1, 1, 1}
+							var GroupSortValue = 0
+							var Material = "582c575af53d18c9:AlphaSprite"
+							var VertexColor = Real4{1, 1, 1, 1}
+							var GeometryMode = SpriteGeometryMode.ZPlane
+							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+							var FlipX = false
+							var FlipY = false
+							var AnimationActive = true
+							var AnimationSpeed = 1
+							var StartFrame = 0
+						}
+						Area 
+						{
+							var Size = Real2{2, 2}
+							var Origin = Location.Center
+						}
+						BoxCollider 
+						{
+							var Ghost = false
+							var SendsEvents = true
+							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+							var CollisionGroup = "4e740859314e5515:DefaultGroup"
+							var Offset = Real3{0, 0, 0}
+							var HalfSize = Real3{1, 1, 0.5}
+						}
+					}
+				}
+			}
+			Cog [Id:0x5ce19ca1c91aa776][ContextId:12]
+			{
+				var Name = "GridOrigin"
+				Transform 
+				{
+					var Translation = Real3{-5, -10, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+			}
+		}
 	}
-	Cog [ContextId:6]
+	Cog [InheritId:"5ce16f33c746efb4:Piece"][ContextId:13]
 	{
-		var Name = "Piece"
 		Transform 
 		{
-			var Translation = Real3{0, 8, 0}
-			var Scale = Real3{1, 1, 1}
+			var Translation = Real3{0, 10, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		PieceController 
-		{
-			var MoveLeftKey = Keys.Left
-			var MoveRightKey = Keys.Right
-			var RotateCWKey = Keys.D
-			var RotateCCWKey = Keys.S
-			var SoftDropKey = Keys.Down
-			var GraphicalRootPath = CogPath
-			{
-				var Path = "GraphicalRoot"
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 7
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-			var ColliderRootPath = CogPath
-			{
-				var Path = "ColliderRoot"
-				var ErrorOnResolveToNull = false
-				var ErrorOnPathCantCompute = false
-				var ErrorOnDirectLinkFail = false
-				var UpdateCogOnPathChange = true
-				var UpdatePathOnCogChange = true
-				var UpdateCogOnInitialize = true
-				var ResolvedNullErrorOccurred = false
-				var Cog = 8
-				var PathPreference0 = CogPathPreference.CogRelative
-				var PathPreference1 = CogPathPreference.SpaceRelative
-				var PathPreference2 = CogPathPreference.Absolute
-			}
-		}
-		RigidBody 
-		{
-			var Velocity = Real3{0, 0, 0}
-			var AngularVelocity = Real3{0, 0, 0}
-			var DynamicState = RigidBodyDynamicState.Kinematic
-			var AllowSleep = true
-			var Asleep = false
-			var RotationLocked = false
-			var Mode2D = Mode2DStates.InheritFromSpace
+			var Scale = Real3{1, 1, 1}
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5c1dc7f318b6f74b][ContextId:9]
+			Cog [Id:0x5c1d998f06547663][ContextId:14]
 			{
-				var Name = "Sprite"
-				Transform 
+				Hierarchy [ChildOrderOverride]
 				{
-					var Translation = Real3{0, 0, 0}
-					var Scale = Real3{0.25, 0.25, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-				Sprite 
-				{
-					var Visible = true
-					var ViewCulling = true
-					var VisibilityEvents = true
-					var OverrideBoundingBox = false
-					var LocalAabbCenter = Real3{0, 0, 0}
-					var LocalAabbHalfExtents = Real3{1, 1, 1}
-					var GroupSortValue = 0
-					var Material = "582c50d330d372c3:AdditiveSprite"
-					var VertexColor = Real4{1, 0, 0.250980377, 1}
-					var GeometryMode = SpriteGeometryMode.ZPlane
-					var SpriteSource = "5274db4c2e7c11f9:Circle"
-					var FlipX = false
-					var FlipY = false
-					var AnimationActive = true
-					var AnimationSpeed = 1
-					var StartFrame = 0
-				}
-			}
-			Cog [Id:0x5c1d99bb08182597][ContextId:7]
-			{
-				var Name = "GraphicalRoot"
-				Transform 
-				{
-					var Translation = Real3{0, 0, 0}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-				Hierarchy 
-				{
-					Cog [Id:0x5c1d998d0629a4b8][ContextId:10]
+					Cog [Id:0x5c1d9ae7e4908090][ContextId:15]
 					{
-						var Name = "Sprite"
-						Transform 
+						Atom [LocallyAdded]
 						{
-							var Translation = Real3{0, 0, 0}
-							var Scale = Real3{1, 1, 1}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0.5, 0.5, 0, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
+							var Data = SquareData
+							{
+								var Filled = true
+								var RtConnection = true
+								var LtConnection = true
+								var UpConnection = true
+								var DnConnection = false
+								var Type = PieceType.T
+							}
 						}
 					}
-					Cog [Id:0x5c1d998d0629a4fc][ContextId:11]
+					Cog [Id:0x5c1d9ae7e49080d9][ContextId:16]
 					{
-						var Name = "Sprite"
-						Transform 
+						Atom [LocallyAdded]
 						{
-							var Translation = Real3{-1, 0, 0}
-							var Scale = Real3{1, 1, 1}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0.5, 0.5, 0, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
+							var Data = SquareData
+							{
+								var Filled = true
+								var RtConnection = true
+								var LtConnection = false
+								var UpConnection = false
+								var DnConnection = false
+								var Type = PieceType.T
+							}
 						}
 					}
-					Cog [Id:0x5c1d998d0629a535][ContextId:12]
+					Cog [Id:0x5c1d9ae7e4908115][ContextId:17]
 					{
-						var Name = "Sprite"
-						Transform 
+						Atom [LocallyAdded]
 						{
-							var Translation = Real3{0, 1, 0}
-							var Scale = Real3{1, 1, 1}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0.5, 0.5, 0, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
+							var Data = SquareData
+							{
+								var Filled = true
+								var RtConnection = false
+								var LtConnection = false
+								var UpConnection = false
+								var DnConnection = true
+								var Type = PieceType.T
+							}
 						}
 					}
-					Cog [Id:0x5c1d998d0629a56b][ContextId:13]
+					Cog [Id:0x5c1d9ae7e490814e][ContextId:18]
 					{
-						var Name = "Sprite"
-						Transform 
+						Atom [LocallyAdded]
 						{
-							var Translation = Real3{1, 0, 0}
-							var Scale = Real3{1, 1, 1}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0.5, 0.5, 0, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
+							var Data = SquareData
+							{
+								var Filled = true
+								var RtConnection = false
+								var LtConnection = true
+								var UpConnection = false
+								var DnConnection = false
+								var Type = PieceType.T
+							}
 						}
 					}
 				}
 			}
-			Cog [Id:0x5c1d998f06547663][ContextId:8]
-			{
-				var Name = "ColliderRoot"
-				Transform 
-				{
-					var Translation = Real3{0, 0, 0}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, -5.96046377e-08, 1}
-				}
-				Hierarchy 
-				{
-					Cog [Id:0x5c1d9ae7e4908090][ContextId:14]
-					{
-						var Name = "Collider"
-						Transform 
-						{
-							var Translation = Real3{0, 0, 0}
-							var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0, 0, 1, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
-						}
-						BoxCollider 
-						{
-							var Ghost = true
-							var SendsEvents = true
-							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-							var CollisionGroup = "4e740859314e5515:DefaultGroup"
-							var Offset = Real3{0, 0, 0}
-							var HalfSize = Real3{0.5, 0.5, 0.5}
-						}
-					}
-					Cog [Id:0x5c1d9ae7e49080d9][ContextId:15]
-					{
-						var Name = "Collider"
-						Transform 
-						{
-							var Translation = Real3{-1, 0, 0}
-							var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0, 0, 1, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
-						}
-						BoxCollider 
-						{
-							var Ghost = true
-							var SendsEvents = true
-							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-							var CollisionGroup = "4e740859314e5515:DefaultGroup"
-							var Offset = Real3{0, 0, 0}
-							var HalfSize = Real3{0.5, 0.5, 0.5}
-						}
-					}
-					Cog [Id:0x5c1d9ae7e4908115][ContextId:16]
-					{
-						var Name = "Collider"
-						Transform 
-						{
-							var Translation = Real3{0, 1, 0}
-							var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0, 0, 1, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
-						}
-						BoxCollider 
-						{
-							var Ghost = true
-							var SendsEvents = true
-							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-							var CollisionGroup = "4e740859314e5515:DefaultGroup"
-							var Offset = Real3{0, 0, 0}
-							var HalfSize = Real3{0.5, 0.5, 0.5}
-						}
-					}
-					Cog [Id:0x5c1d9ae7e490814e][ContextId:17]
-					{
-						var Name = "Collider"
-						Transform 
-						{
-							var Translation = Real3{1, 0, 0}
-							var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
-							var Rotation = Quaternion{0, 0, 0, 1}
-						}
-						Sprite 
-						{
-							var Visible = true
-							var ViewCulling = true
-							var VisibilityEvents = true
-							var OverrideBoundingBox = false
-							var LocalAabbCenter = Real3{0, 0, 0}
-							var LocalAabbHalfExtents = Real3{1, 1, 1}
-							var GroupSortValue = 0
-							var Material = "582c50d330d372c3:AdditiveSprite"
-							var VertexColor = Real4{0, 0, 1, 1}
-							var GeometryMode = SpriteGeometryMode.ZPlane
-							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-							var FlipX = false
-							var FlipY = false
-							var AnimationActive = true
-							var AnimationSpeed = 1
-							var StartFrame = 0
-						}
-						BoxCollider 
-						{
-							var Ghost = true
-							var SendsEvents = true
-							var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-							var CollisionGroup = "4e740859314e5515:DefaultGroup"
-							var Offset = Real3{0, 0, 0}
-							var HalfSize = Real3{0.5, 0.5, 0.5}
-						}
-					}
-				}
-			}
-		}
-	}
-	Cog [ContextId:18]
-	{
-		var Name = "Sprite"
-		Transform 
-		{
-			var Translation = Real3{-6.5, -0.5, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "582c575af53d18c9:AlphaSprite"
-			var VertexColor = Real4{1, 1, 1, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{2, 20}
-			var Origin = Location.Center
-		}
-		BoxCollider 
-		{
-			var Ghost = false
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{1, 10, 0.5}
-		}
-	}
-	Cog [ContextId:19]
-	{
-		var Name = "Sprite"
-		Transform 
-		{
-			var Translation = Real3{5.5, -0.5, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "582c575af53d18c9:AlphaSprite"
-			var VertexColor = Real4{1, 1, 1, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{2, 20}
-			var Origin = Location.Center
-		}
-		BoxCollider 
-		{
-			var Ghost = false
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{1, 10, 0.5}
-		}
-	}
-	Cog [ContextId:20]
-	{
-		var Name = "Sprite"
-		Transform 
-		{
-			var Translation = Real3{-6.5, -11.5, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "582c575af53d18c9:AlphaSprite"
-			var VertexColor = Real4{1, 1, 1, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{2, 2}
-			var Origin = Location.Center
-		}
-		BoxCollider 
-		{
-			var Ghost = false
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{1, 1, 0.5}
-		}
-	}
-	Cog [ContextId:21]
-	{
-		var Name = "Sprite"
-		Transform 
-		{
-			var Translation = Real3{-0.5, -11.5, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "582c575af53d18c9:AlphaSprite"
-			var VertexColor = Real4{1, 1, 1, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{10, 2}
-			var Origin = Location.Center
-		}
-		BoxCollider 
-		{
-			var Ghost = false
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{5, 1, 0.5}
-		}
-	}
-	Cog [ContextId:22]
-	{
-		var Name = "Sprite"
-		Transform 
-		{
-			var Translation = Real3{5.5, -11.5, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Sprite 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "582c575af53d18c9:AlphaSprite"
-			var VertexColor = Real4{1, 1, 1, 1}
-			var GeometryMode = SpriteGeometryMode.ZPlane
-			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-			var FlipX = false
-			var FlipY = false
-			var AnimationActive = true
-			var AnimationSpeed = 1
-			var StartFrame = 0
-		}
-		Area 
-		{
-			var Size = Real2{2, 2}
-			var Origin = Location.Center
-		}
-		BoxCollider 
-		{
-			var Ghost = false
-			var SendsEvents = true
-			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-			var CollisionGroup = "4e740859314e5515:DefaultGroup"
-			var Offset = Real3{0, 0, 0}
-			var HalfSize = Real3{1, 1, 0.5}
 		}
 	}
 }

@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "StaticSquare"
+		var ResourceId = 0x5ce196360ffc3224
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}
