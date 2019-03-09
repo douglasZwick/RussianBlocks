@@ -77,7 +77,7 @@ Level
 		var Name = "EditorCamera"
 		Transform 
 		{
-			var Translation = Real3{0, 0, 20}
+			var Translation = Real3{-9.8774519, 0.392335773, 20}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
@@ -130,7 +130,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 24.4280396
+			var Size = 19.9888878
 		}
 		EditorCameraController 
 		{
@@ -139,7 +139,7 @@ Level
 			var LookDistance = 20
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{0, 0, 0}
+			var LookTarget = Real3{-9.8774519, 0.392335773, 9.27794659e-08}
 			var MoveSensitivity = 1
 		}
 	}
@@ -247,8 +247,22 @@ Level
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
+		DataChecker 
+		{
+			var CursorArchetype = "5cff4bcf5d7fdb83:DataCheckCursor"
+		}
 		Hierarchy 
 		{
+			Cog [Id:0x5ce19ca1c91aa776][ContextId:6]
+			{
+				var Name = "GridOrigin"
+				Transform 
+				{
+					var Translation = Real3{-5, -10, 0}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+			}
 			Cog [Id:0x5ce19cc4f0036d8f][ContextId:7]
 			{
 				var Name = "Walls"
@@ -278,8 +292,8 @@ Level
 							var LocalAabbCenter = Real3{0, 0, 0}
 							var LocalAabbHalfExtents = Real3{1, 1, 1}
 							var GroupSortValue = 0
-							var Material = "582c575af53d18c9:AlphaSprite"
-							var VertexColor = Real4{1, 1, 1, 1}
+							var Material = "582c50d330d372c3:AdditiveSprite"
+							var VertexColor = Real4{1, 1, 1, 0.100000001}
 							var GeometryMode = SpriteGeometryMode.ZPlane
 							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
 							var FlipX = false
@@ -321,8 +335,8 @@ Level
 							var LocalAabbCenter = Real3{0, 0, 0}
 							var LocalAabbHalfExtents = Real3{1, 1, 1}
 							var GroupSortValue = 0
-							var Material = "582c575af53d18c9:AlphaSprite"
-							var VertexColor = Real4{1, 1, 1, 1}
+							var Material = "582c50d330d372c3:AdditiveSprite"
+							var VertexColor = Real4{1, 1, 1, 0.100000001}
 							var GeometryMode = SpriteGeometryMode.ZPlane
 							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
 							var FlipX = false
@@ -364,8 +378,8 @@ Level
 							var LocalAabbCenter = Real3{0, 0, 0}
 							var LocalAabbHalfExtents = Real3{1, 1, 1}
 							var GroupSortValue = 0
-							var Material = "582c575af53d18c9:AlphaSprite"
-							var VertexColor = Real4{1, 1, 1, 1}
+							var Material = "582c50d330d372c3:AdditiveSprite"
+							var VertexColor = Real4{1, 1, 1, 0.100000001}
 							var GeometryMode = SpriteGeometryMode.ZPlane
 							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
 							var FlipX = false
@@ -407,8 +421,8 @@ Level
 							var LocalAabbCenter = Real3{0, 0, 0}
 							var LocalAabbHalfExtents = Real3{1, 1, 1}
 							var GroupSortValue = 0
-							var Material = "582c575af53d18c9:AlphaSprite"
-							var VertexColor = Real4{1, 1, 1, 1}
+							var Material = "582c50d330d372c3:AdditiveSprite"
+							var VertexColor = Real4{1, 1, 1, 0.100000001}
 							var GeometryMode = SpriteGeometryMode.ZPlane
 							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
 							var FlipX = false
@@ -450,8 +464,8 @@ Level
 							var LocalAabbCenter = Real3{0, 0, 0}
 							var LocalAabbHalfExtents = Real3{1, 1, 1}
 							var GroupSortValue = 0
-							var Material = "582c575af53d18c9:AlphaSprite"
-							var VertexColor = Real4{1, 1, 1, 1}
+							var Material = "582c50d330d372c3:AdditiveSprite"
+							var VertexColor = Real4{1, 1, 1, 0.100000001}
 							var GeometryMode = SpriteGeometryMode.ZPlane
 							var SpriteSource = "5586f579ca73ecc2:SquareBordered"
 							var FlipX = false
@@ -477,25 +491,1133 @@ Level
 					}
 				}
 			}
-			Cog [Id:0x5ce19ca1c91aa776][ContextId:6]
+			Cog [Id:0x5cff4e591d9e0730][ContextId:13]
 			{
-				var Name = "GridOrigin"
+				var Name = "Background"
 				Transform 
 				{
-					var Translation = Real3{-5, -10, 0}
+					var Translation = Real3{0, 0, 0}
 					var Scale = Real3{1, 1, 1}
 					var Rotation = Quaternion{0, 0, 0, 1}
 				}
+				Hierarchy 
+				{
+					Cog [Id:0x5cff4fafe441d85f][ContextId:14]
+					{
+						var Name = "HorizontalLines"
+						Transform 
+						{
+							var Translation = Real3{0, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5cff4fa6ebc903c4][ContextId:15]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f70c78feca0][ContextId:16]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -9.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f75c610f4ff][ContextId:17]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -8.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f77c66c1dc3][ContextId:18]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -7.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f69c6a5fa7b][ContextId:19]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -6.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f68c6fbe77f][ContextId:20]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -5.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f6bc5313958][ContextId:21]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -4.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f6cc59427e0][ContextId:22]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -3.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f6ec5c851ad][ContextId:23]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -2.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f60c422d3ec][ContextId:24]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -1.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f62c49b719f][ContextId:25]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, -0.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f67c4e9eebf][ContextId:26]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 0.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f66cb3d381c][ContextId:27]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 1.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f59cb4e0596][ContextId:28]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 2.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f58cb93454b][ContextId:29]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 3.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f5bcbaa7d8b][ContextId:30]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 4.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f5cca2d8e5c][ContextId:31]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 5.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f5eca604c42][ContextId:32]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 6.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f51cabca0ca][ContextId:33]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 7.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f50cafe17a4][ContextId:34]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 8.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+							Cog [Id:0x5cff4f52c93d03b2][ContextId:35]
+							{
+								var Name = "HorizontalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.49999952, 9.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{10, 0.100000001}
+									var Origin = Location.CenterLeft
+								}
+							}
+						}
+					}
+					Cog [Id:0x5cff4f40cf644a1f][ContextId:36]
+					{
+						var Name = "VerticalLines"
+						Transform 
+						{
+							var Translation = Real3{0, 0, 0}
+							var Scale = Real3{1, 1, 1}
+							var Rotation = Quaternion{0, 0, 0, 1}
+						}
+						Hierarchy 
+						{
+							Cog [Id:0x5cff48bdcd2dba88][ContextId:37]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{-5.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff4894d6140127][ContextId:38]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{-4.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff4896d648e210][ContextId:39]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{-3.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff4888d69c2178][ContextId:40]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{-2.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff488bd6a0ca52][ContextId:41]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{-1.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff488ad6f4286d][ContextId:42]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{-0.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff488dd5181e73][ContextId:43]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{0.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff488cd553df18][ContextId:44]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{1.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff488fd56a7119][ContextId:45]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{2.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff488ed5b06b76][ContextId:46]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{3.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+							Cog [Id:0x5cff4883d41ef8a1][ContextId:47]
+							{
+								var Name = "VerticalLine"
+								Transform 
+								{
+									var Translation = Real3{4.5, -10.5, 0}
+									var Scale = Real3{1, 1, 1}
+									var Rotation = Quaternion{0, 0, 0, 1}
+								}
+								Sprite 
+								{
+									var Visible = true
+									var ViewCulling = true
+									var VisibilityEvents = true
+									var OverrideBoundingBox = false
+									var LocalAabbCenter = Real3{0, 0, 0}
+									var LocalAabbHalfExtents = Real3{1, 1, 1}
+									var GroupSortValue = 0
+									var Material = "582c50d330d372c3:AdditiveSprite"
+									var VertexColor = Real4{1, 1, 1, 0.0199999996}
+									var GeometryMode = SpriteGeometryMode.ZPlane
+									var SpriteSource = "5275aa4d802dd6dc:Square"
+									var FlipX = false
+									var FlipY = false
+									var AnimationActive = true
+									var AnimationSpeed = 1
+									var StartFrame = 0
+								}
+								Area 
+								{
+									var Size = Real2{0.100000001, 20}
+									var Origin = Location.BottomCenter
+								}
+							}
+						}
+					}
+				}
 			}
-		}
-	}
-	Cog [InheritId:"5ce16f33c746efb4:Piece"][ContextId:13]
-	{
-		Transform 
-		{
-			var Translation = Real3{0, 10, 0}
-			var Rotation = Quaternion{0, 0, 0, 1}
-			var Scale = Real3{1, 1, 1}
 		}
 	}
 }

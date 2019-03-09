@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "OPiece"
+		var ResourceId = 0x5cff60e1cb30e201
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

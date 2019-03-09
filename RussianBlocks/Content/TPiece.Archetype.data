@@ -1,0 +1,11 @@
+[Version:1]
+Cog [InheritId:"5ce16f33c746efb4:Piece"]
+{
+	var Name = "TPiece"
+	Transform 
+	{
+		var Translation = Real3{-11, 3, 0}
+		var Rotation = Quaternion{0, 0, 0, 1}
+		var Scale = Real3{1, 1, 1}
+	}
+}

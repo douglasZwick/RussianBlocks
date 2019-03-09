@@ -12,12 +12,23 @@ class BoardController : ZilchComponent
   
   var NewPieceSpawnPosition : Real3 = Real3(0, 10, 0);
   var PieceArchetype : Archetype = Archetype.Piece;
+  var PieceArchetypes : Array[Archetype] = Array[Archetype]()
+  {
+    Archetype.IPiece,
+    Archetype.OPiece,
+    Archetype.TPiece,
+  };
   var StaticSquareArchetype : Archetype = Archetype.StaticSquare;
   var LineIdentificationSquareArchetype : Archetype = Archetype.LineIdentificationSquare;
   
   var GridSize : Integer2 = Integer2(10, 20);
   var Grid : Array[Array[SquareData]];
   var GridOrigin : Real3;
+  
+  var IndexQueue : Array[Integer] = Array[Integer]();
+  var RNG : Random = Random();
+  
+  var LineCount : Integer = 0;
   
   
   function Initialize(init : CogInitializer)
@@ -38,8 +49,20 @@ class BoardController : ZilchComponent
       this.Grid.Add(column);
     }
     
+    this.AddBagToQueue();
+    this.AddBagToQueue();
+    
+    Console.WriteLine(this.IndexQueue);
+    
+    Zero.Connect(init, Events.AllObjectsInitialized, this.OnAllObjectsInitialized);
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
     Zero.Connect(this.Space, Events.PieceStuck, this.OnPieceStuck);
+  }
+  
+  
+  function OnAllObjectsInitialized(event : CogInitializerEvent)
+  {
+    this.CreateNewPiece();
   }
   
   
@@ -66,17 +89,26 @@ class BoardController : ZilchComponent
   
   function CreateStaticBlocks(event : PieceEvent)
   {
-    foreach (var child in event.Piece.ColliderTransform.Owner.Children)
+    var colliderTransform = event.Piece.ColliderTransform;
+    var angle = colliderTransform.EulerAngles.Z;
+    
+    foreach (var child in colliderTransform.Owner.Children)
     {
       var childTransform = child.Transform;
       var position = childTransform.WorldTranslation;
-      var angle = childTransform.EulerAngles.Z;
       
       var staticSquare = this.Space.CreateAtPosition(this.StaticSquareArchetype, position);
       
+      //Console.WriteLine("About to rotate: `child.Atom.Data.ToString()`");
+      
       var data = this.RotateData(child.Atom.Data, angle);
+      
       data.StaticSquare = staticSquare;
+      //Console.WriteLine("Just rotated: `data.ToString()`");
       var index = this.WorldPositionToGridIndex(position);
+      var safetyCheckPosition = this.GridIndexToWorldPosition(index);
+      if (!Math.AllNonZero(Math.ApproximatelyEqual(position, safetyCheckPosition, 0.001)))
+        Console.WriteLine("`position` | `this.GridIndexToWorldPosition(index)` | `index`");
       this.Grid[index.X][index.Y] = data;
     }
   }
@@ -110,8 +142,6 @@ class BoardController : ZilchComponent
         {
           var index = Integer2(x, y);
           filledSquares.Add(index);
-          var position = this.GridIndexToWorldPosition(index);
-          var lineIdentificationSquare = this.Space.CreateAtPosition(this.LineIdentificationSquareArchetype, position);
         }
       }
       
@@ -121,19 +151,75 @@ class BoardController : ZilchComponent
         
         foreach (var index in filledSquares)
         {
-          //var position = this.GridIndexToWorldPosition(index);
-          //var lineIdentificationSquare = this.Space.CreateAtPosition(this.LineIdentificationSquareArchetype, position);
+          this.Grid[index.X][index.Y].Filled = false;
+          var square = this.Grid[index.X][index.Y].StaticSquare;
+          if (square != null)
+            square.Destroy();
         }
       }
     }
     
-    Console.WriteLine(linesCleared);
+    this.LineCount += linesCleared;
+    
+    if (linesCleared > 0)
+    {
+      var clearString = "";
+      
+      if      (linesCleared == 1)
+        clearString = "  Single    --   40 pts";
+      else if (linesCleared == 2)
+        clearString = "  Double!    -  100 pts";
+      else if (linesCleared == 3)
+        clearString = "  Triple!    -  300 pts";
+      else if (linesCleared == 4)
+        clearString = "YES! TETRIS! - 1200 pts";
+      
+      Console.WriteLine(clearString);
+      Console.WriteLine("Total: `this.LineCount`");
+    }
+  }
+  
+  
+  function AddBagToQueue()
+  {
+    var count = this.PieceArchetypes.Count;
+    var bag = Array[Integer](count);
+    for (var i = 0; i < count; ++i)
+      bag[i] = i;
+    this.ShuffleArray(bag);
+    foreach (var index in bag)
+      this.IndexQueue.Add(index);
+  }
+  
+  
+  function ShuffleArray(array : Array[Integer])
+  {
+    var n = array.Count;
+    for (var i = n - 1; i > 0; --i)
+    {
+      var r = this.RNG.DieRoll(i + 1) - 1;
+      this.SwapIndices(array, i, r);
+    }
+  }
+  
+  
+  function SwapIndices(array : Array[Integer], a : Integer, b : Integer)
+  {
+    var temp = array[a];
+    array[a] = array[b];
+    array[b] = temp;
   }
   
   
   function CreateNewPiece()
   {
-    var piece = this.Space.CreateAtPosition(this.PieceArchetype, this.NewPieceSpawnPosition);
+    var index = this.IndexQueue[0];
+    this.IndexQueue.RemoveAt(0);
+    var archetype = this.PieceArchetypes[index];
+    var piece = this.Space.CreateAtPosition(archetype, this.NewPieceSpawnPosition);
+    
+    if (this.IndexQueue.Count < this.PieceArchetypes.Count)
+      this.AddBagToQueue();
   }
   
   
@@ -145,7 +231,7 @@ class BoardController : ZilchComponent
   
   function WorldPositionToGridIndex(position : Real3) : Integer2
   {
-    var shifted = position - this.GridOrigin;
+    var shifted = Math.Round(position - this.GridOrigin);
     return Integer2(shifted.X as Integer, shifted.Y as Integer);
   }
   
@@ -153,44 +239,38 @@ class BoardController : ZilchComponent
   function RotateData(data : SquareData, angle : Real) : SquareData
   {
     var output = SquareData();
-    output.Filled = true;
+    output.Filled = data.Filled;
     output.Type = data.Type;
     var eighth = Math.Pi / 4;
     
-    if      (eighth <= angle && angle < 3 * eighth)       // top quadrant
+    if      (-eighth <= angle && angle < eighth)          // right quadrant
     {
-      if (data.RtConnection)
-        output.UpConnection = true;
-      if (data.UpConnection)
-        output.LtConnection = true;
-      if (data.LtConnection)
-        output.DnConnection = true;
-      if (data.DnConnection)
-        output.RtConnection = true;
+      output.RtConnection = data.RtConnection;
+      output.UpConnection = data.UpConnection;
+      output.LtConnection = data.LtConnection;
+      output.DnConnection = data.DnConnection;
+    }
+    else if (eighth <= angle && angle < 3 * eighth)       // top quadrant
+    {
+      output.UpConnection = data.RtConnection;
+      output.LtConnection = data.UpConnection;
+      output.DnConnection = data.LtConnection;
+      output.RtConnection = data.DnConnection;
     }
     else if (3 * eighth <= angle || angle < -3 * eighth)  // left quadrant
     {
-      if (data.RtConnection)
-        output.LtConnection = true;
-      if (data.UpConnection)
-        output.DnConnection = true;
-      if (data.LtConnection)
-        output.RtConnection = true;
-      if (data.DnConnection)
-        output.UpConnection = true;
+      output.LtConnection = data.RtConnection;
+      output.DnConnection = data.UpConnection;
+      output.RtConnection = data.LtConnection;
+      output.UpConnection = data.DnConnection;
     }
-    else if (-3 * eighth <= angle && angle < -eighth)     // bottom quadrant
+    else //  -3 * eighth <= angle && angle < -eighth      // bottom quadrant
     {
-      if (data.RtConnection)
-        output.DnConnection = true;
-      if (data.UpConnection)
-        output.RtConnection = true;
-      if (data.LtConnection)
-        output.UpConnection = true;
-      if (data.DnConnection)
-        output.LtConnection = true;
+      output.DnConnection = data.RtConnection;
+      output.RtConnection = data.UpConnection;
+      output.UpConnection = data.LtConnection;
+      output.LtConnection = data.DnConnection;
     }
-    // else do nothing                                    // right quadrant
     
     return output;
   }
@@ -214,4 +294,29 @@ class SquareData : ZilchObject
   [Property] var DnConnection : Boolean = false;
   [Property] var Type : PieceType;
   var StaticSquare : Cog = null;
+  
+  
+  function Copy() : SquareData
+  {
+    var output = SquareData();
+    output.Filled = this.Filled;
+    output.RtConnection = this.RtConnection;
+    output.LtConnection = this.LtConnection;
+    output.UpConnection = this.UpConnection;
+    output.DnConnection = this.DnConnection;
+    
+    return output;
+  }
+  
+  
+  function ToString() : String
+  {
+    var format = "F: %d | RULD: %d%d%d%d | Type: %s | Cog: %s";
+    var filled = this.Filled as Integer;
+    var rt = this.RtConnection as Integer;
+    var up = this.UpConnection as Integer;
+    var lt = this.LtConnection as Integer;
+    var dn = this.DnConnection as Integer;
+    return String.FormatC(format, filled, rt, up, lt, dn, this.Type, this.StaticSquare);
+  }
 }

@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "DataChecker"
+		var ResourceId = 0x5cff4df75fd306fc
+	}
+}

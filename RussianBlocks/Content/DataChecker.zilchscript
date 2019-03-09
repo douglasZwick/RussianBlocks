@@ -1,0 +1,75 @@
+class DataChecker : ZilchComponent
+{
+  [Dependency] var BoardController : BoardController;
+  
+  
+  [Property]
+  var CursorArchetype : Archetype = Archetype.DataCheckCursor;
+  
+  var Cursor : Cog = null;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.MouseMove, this.OnMouseMove);
+    Zero.Connect(this.Space, Events.MouseDown, this.OnMouseDown);
+  }
+  
+  
+  function OnMouseMove(event : ViewportMouseEvent)
+  {
+    var mousePosition = event.ToWorldZPlane(0);
+    this.MoveCursorTo(mousePosition);
+  }
+  
+  
+  function OnMouseDown(event : ViewportMouseEvent)
+  {
+    var mousePosition = event.ToWorldZPlane(0);
+    
+    if (!this.IsPositionValid(mousePosition))
+      return;
+    
+    var index = this.BoardController.WorldPositionToGridIndex(mousePosition);
+    var data = this.BoardController.Grid[index.X][index.Y];
+    var dataString = data.ToString();
+    Console.WriteLine("Data at `index`: `dataString`");
+  }
+  
+  
+  function MoveCursorTo(position : Real3)
+  {
+    if (this.IsPositionValid(position))
+      this.CreateCursorAt(position);
+    else
+      this.DestroyCursor();
+  }
+  
+  
+  function IsPositionValid(position : Real3) : Boolean
+  {
+    var index = this.BoardController.WorldPositionToGridIndex(position);
+    var gridSize = this.BoardController.GridSize;
+    
+    return 0 <= index.X && index.X < gridSize.X && 0 <= index.Y && index.Y < gridSize.Y;
+  }
+  
+  
+  function CreateCursorAt(position : Real3)
+  {
+    var index = this.BoardController.WorldPositionToGridIndex(position);
+    position = this.BoardController.GridIndexToWorldPosition(index);
+    
+    if (this.Cursor == null)
+      this.Cursor = this.Space.CreateAtPosition(this.CursorArchetype, position);
+    else
+      this.Cursor.Transform.WorldTranslation = position;
+  }
+  
+  
+  function DestroyCursor()
+  {
+    if (this.Cursor != null)
+      this.Cursor.Destroy();
+  }
+}
