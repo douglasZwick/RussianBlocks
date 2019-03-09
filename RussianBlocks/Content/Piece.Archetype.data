@@ -4,7 +4,7 @@ Cog
 	var Name = "Piece"
 	Transform 
 	{
-		var Translation = Real3{0, 10, 0}
+		var Translation = Real3{-16, 2, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -99,35 +99,6 @@ Cog
 			}
 			Hierarchy 
 			{
-				Cog [Id:0x5c1d998d0629a4b8]
-				{
-					var Name = "Sprite"
-					Transform 
-					{
-						var Translation = Real3{0, 0, 0}
-						var Scale = Real3{1, 1, 1}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c50d330d372c3:AdditiveSprite"
-						var VertexColor = Real4{0.5, 0.5, 0, 1}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = true
-						var AnimationSpeed = 1
-						var StartFrame = 0
-					}
-				}
 				Cog [Id:0x5c1d998d0629a4fc]
 				{
 					var Name = "Sprite"
@@ -157,12 +128,12 @@ Cog
 						var StartFrame = 0
 					}
 				}
-				Cog [Id:0x5c1d998d0629a535]
+				Cog [Id:0x5c1d998d0629a4b8]
 				{
 					var Name = "Sprite"
 					Transform 
 					{
-						var Translation = Real3{0, 1, 0}
+						var Translation = Real3{0, 0, 0}
 						var Scale = Real3{1, 1, 1}
 						var Rotation = Quaternion{0, 0, 0, 1}
 					}
@@ -215,6 +186,35 @@ Cog
 						var StartFrame = 0
 					}
 				}
+				Cog [Id:0x5c1d998d0629a535]
+				{
+					var Name = "Sprite"
+					Transform 
+					{
+						var Translation = Real3{0, 1, 0}
+						var Scale = Real3{1, 1, 1}
+						var Rotation = Quaternion{0, 0, 0, 1}
+					}
+					Sprite 
+					{
+						var Visible = true
+						var ViewCulling = true
+						var VisibilityEvents = true
+						var OverrideBoundingBox = false
+						var LocalAabbCenter = Real3{0, 0, 0}
+						var LocalAabbHalfExtents = Real3{1, 1, 1}
+						var GroupSortValue = 0
+						var Material = "582c50d330d372c3:AdditiveSprite"
+						var VertexColor = Real4{0.5, 0.5, 0, 1}
+						var GeometryMode = SpriteGeometryMode.ZPlane
+						var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+						var FlipX = false
+						var FlipY = false
+						var AnimationActive = true
+						var AnimationSpeed = 1
+						var StartFrame = 0
+					}
+				}
 			}
 		}
 		Cog [Id:0x5c1d998f06547663]
@@ -228,6 +228,56 @@ Cog
 			}
 			Hierarchy 
 			{
+				Cog [Id:0x5c1d9ae7e49080d9]
+				{
+					var Name = "Collider"
+					Transform 
+					{
+						var Translation = Real3{-1, 0, 0}
+						var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
+						var Rotation = Quaternion{0, 0, 0, 1}
+					}
+					Sprite 
+					{
+						var Visible = true
+						var ViewCulling = true
+						var VisibilityEvents = true
+						var OverrideBoundingBox = false
+						var LocalAabbCenter = Real3{0, 0, 0}
+						var LocalAabbHalfExtents = Real3{1, 1, 1}
+						var GroupSortValue = 0
+						var Material = "582c50d330d372c3:AdditiveSprite"
+						var VertexColor = Real4{0, 0, 1, 1}
+						var GeometryMode = SpriteGeometryMode.ZPlane
+						var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+						var FlipX = false
+						var FlipY = false
+						var AnimationActive = true
+						var AnimationSpeed = 1
+						var StartFrame = 0
+					}
+					BoxCollider 
+					{
+						var Ghost = true
+						var SendsEvents = true
+						var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+						var CollisionGroup = "4e740859314e5515:DefaultGroup"
+						var Offset = Real3{0, 0, 0}
+						var HalfSize = Real3{0.5, 0.5, 0.5}
+					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Filled = true
+							var RtConnection = true
+							var LtConnection = false
+							var UpConnection = false
+							var DnConnection = false
+							var Type = PieceType.T
+						}
+					}
+				}
 				Cog [Id:0x5c1d9ae7e4908090]
 				{
 					var Name = "Collider"
@@ -278,12 +328,12 @@ Cog
 						}
 					}
 				}
-				Cog [Id:0x5c1d9ae7e49080d9]
+				Cog [Id:0x5c1d9ae7e490814e]
 				{
 					var Name = "Collider"
 					Transform 
 					{
-						var Translation = Real3{-1, 0, 0}
+						var Translation = Real3{1, 0, 0}
 						var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
 						var Rotation = Quaternion{0, 0, 0, 1}
 					}
@@ -320,8 +370,8 @@ Cog
 						var Data = SquareData
 						{
 							var Filled = true
-							var RtConnection = true
-							var LtConnection = false
+							var RtConnection = false
+							var LtConnection = true
 							var UpConnection = false
 							var DnConnection = false
 							var Type = PieceType.T
@@ -374,56 +424,6 @@ Cog
 							var LtConnection = false
 							var UpConnection = false
 							var DnConnection = true
-							var Type = PieceType.T
-						}
-					}
-				}
-				Cog [Id:0x5c1d9ae7e490814e]
-				{
-					var Name = "Collider"
-					Transform 
-					{
-						var Translation = Real3{1, 0, 0}
-						var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
-						var Rotation = Quaternion{0, 0, 0, 1}
-					}
-					Sprite 
-					{
-						var Visible = true
-						var ViewCulling = true
-						var VisibilityEvents = true
-						var OverrideBoundingBox = false
-						var LocalAabbCenter = Real3{0, 0, 0}
-						var LocalAabbHalfExtents = Real3{1, 1, 1}
-						var GroupSortValue = 0
-						var Material = "582c50d330d372c3:AdditiveSprite"
-						var VertexColor = Real4{0, 0, 1, 1}
-						var GeometryMode = SpriteGeometryMode.ZPlane
-						var SpriteSource = "5586f579ca73ecc2:SquareBordered"
-						var FlipX = false
-						var FlipY = false
-						var AnimationActive = true
-						var AnimationSpeed = 1
-						var StartFrame = 0
-					}
-					BoxCollider 
-					{
-						var Ghost = true
-						var SendsEvents = true
-						var Material = "4de020863e872da8:DefaultPhysicsMaterial"
-						var CollisionGroup = "4e740859314e5515:DefaultGroup"
-						var Offset = Real3{0, 0, 0}
-						var HalfSize = Real3{0.5, 0.5, 0.5}
-					}
-					Atom 
-					{
-						var Data = SquareData
-						{
-							var Filled = true
-							var RtConnection = false
-							var LtConnection = true
-							var UpConnection = false
-							var DnConnection = false
 							var Type = PieceType.T
 						}
 					}

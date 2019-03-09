@@ -20,18 +20,34 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 			{
 				Cog [Id:0x5c1d998d0629a4fc]
 				{
+					Sprite 
+					{
+						var VertexColor = Real4{0, 0.75, 0.75, 1}
+					}
 				}
 				Cog [Id:0x5c1d998d0629a4b8]
 				{
+					Sprite 
+					{
+						var VertexColor = Real4{0, 0.75, 0.75, 1}
+					}
 				}
 				Cog [Id:0x5c1d998d0629a56b]
 				{
+					Sprite 
+					{
+						var VertexColor = Real4{0, 0.75, 0.75, 1}
+					}
 				}
 				Cog [Id:0x5c1d998d0629a535]
 				{
 					Transform 
 					{
 						var Translation = Real3{2, 0, 0}
+					}
+					Sprite 
+					{
+						var VertexColor = Real4{0, 0.75, 0.75, 1}
 					}
 				}
 			}
@@ -42,6 +58,10 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 			{
 				Cog [Id:0x5c1d9ae7e49080d9]
 				{
+					Sprite 
+					{
+						var Visible = false
+					}
 					Atom 
 					{
 						var Data = SquareData
@@ -52,6 +72,10 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 				}
 				Cog [Id:0x5c1d9ae7e4908090]
 				{
+					Sprite 
+					{
+						var Visible = false
+					}
 					Atom 
 					{
 						var Data = SquareData
@@ -63,6 +87,10 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 				}
 				Cog [Id:0x5c1d9ae7e490814e]
 				{
+					Sprite 
+					{
+						var Visible = false
+					}
 					Atom 
 					{
 						var Data = SquareData
@@ -77,6 +105,10 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 					Transform 
 					{
 						var Translation = Real3{2, 2.38418579e-07, 0}
+					}
+					Sprite 
+					{
+						var Visible = false
 					}
 					Atom 
 					{

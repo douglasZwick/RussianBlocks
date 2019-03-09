@@ -1,12 +1,16 @@
 [Version:1]
 Cog [InheritId:"5ce16f33c746efb4:Piece"]
 {
-	var Name = "TPiece"
+	var Name = "JPiece"
 	Transform 
 	{
-		var Translation = Real3{-11, 3, 0}
+		var Translation = Real3{-18, 1, 0}
 		var Rotation = Quaternion{0, 0, 0, 1}
 		var Scale = Real3{1, 1, 1}
+	}
+	PieceController 
+	{
+		var Type = PieceType.J
 	}
 	Hierarchy 
 	{
@@ -18,28 +22,32 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 				{
 					Sprite 
 					{
-						var VertexColor = Real4{0.5625, 0, 0.75, 1}
+						var VertexColor = Real4{0, 0.1875, 0.75, 1}
 					}
 				}
 				Cog [Id:0x5c1d998d0629a4b8]
 				{
 					Sprite 
 					{
-						var VertexColor = Real4{0.5625, 0, 0.75, 1}
+						var VertexColor = Real4{0, 0.1875, 0.75, 1}
 					}
 				}
 				Cog [Id:0x5c1d998d0629a56b]
 				{
 					Sprite 
 					{
-						var VertexColor = Real4{0.5625, 0, 0.75, 1}
+						var VertexColor = Real4{0, 0.1875, 0.75, 1}
 					}
 				}
 				Cog [Id:0x5c1d998d0629a535]
 				{
+					Transform 
+					{
+						var Translation = Real3{-1, 1, 0}
+					}
 					Sprite 
 					{
-						var VertexColor = Real4{0.5625, 0, 0.75, 1}
+						var VertexColor = Real4{0, 0.1875, 0.75, 1}
 					}
 				}
 			}
@@ -54,12 +62,28 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 					{
 						var Visible = false
 					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var UpConnection = true
+							var Type = PieceType.J
+						}
+					}
 				}
 				Cog [Id:0x5c1d9ae7e4908090]
 				{
 					Sprite 
 					{
 						var Visible = false
+					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var UpConnection = false
+							var Type = PieceType.J
+						}
 					}
 				}
 				Cog [Id:0x5c1d9ae7e490814e]
@@ -68,12 +92,30 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 					{
 						var Visible = false
 					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Type = PieceType.J
+						}
+					}
 				}
 				Cog [Id:0x5c1d9ae7e4908115]
 				{
+					Transform 
+					{
+						var Translation = Real3{-1, 0.999999881, 0}
+					}
 					Sprite 
 					{
 						var Visible = false
+					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Type = PieceType.J
+						}
 					}
 				}
 			}

@@ -17,6 +17,10 @@ class BoardController : ZilchComponent
     Archetype.IPiece,
     Archetype.OPiece,
     Archetype.TPiece,
+    Archetype.LPiece,
+    Archetype.JPiece,
+    Archetype.SPiece,
+    Archetype.ZPiece,
   };
   var StaticSquareArchetype : Archetype = Archetype.StaticSquare;
   var LineIdentificationSquareArchetype : Archetype = Archetype.LineIdentificationSquare;
@@ -52,7 +56,7 @@ class BoardController : ZilchComponent
     this.AddBagToQueue();
     this.AddBagToQueue();
     
-    Console.WriteLine(this.IndexQueue);
+    Console.WriteLine(this.QueueToString());
     
     Zero.Connect(init, Events.AllObjectsInitialized, this.OnAllObjectsInitialized);
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
@@ -96,19 +100,13 @@ class BoardController : ZilchComponent
     {
       var childTransform = child.Transform;
       var position = childTransform.WorldTranslation;
-      
-      var staticSquare = this.Space.CreateAtPosition(this.StaticSquareArchetype, position);
-      
-      //Console.WriteLine("About to rotate: `child.Atom.Data.ToString()`");
-      
       var data = this.RotateData(child.Atom.Data, angle);
       
+      var staticSquare = this.Space.CreateAtPosition(this.StaticSquareArchetype, position);
+      staticSquare.Sprite.VertexColor = PieceController.Colors[data.Type];
+      
       data.StaticSquare = staticSquare;
-      //Console.WriteLine("Just rotated: `data.ToString()`");
       var index = this.WorldPositionToGridIndex(position);
-      var safetyCheckPosition = this.GridIndexToWorldPosition(index);
-      if (!Math.AllNonZero(Math.ApproximatelyEqual(position, safetyCheckPosition, 0.001)))
-        Console.WriteLine("`position` | `this.GridIndexToWorldPosition(index)` | `index`");
       this.Grid[index.X][index.Y] = data;
     }
   }
@@ -208,6 +206,20 @@ class BoardController : ZilchComponent
     var temp = array[a];
     array[a] = array[b];
     array[b] = temp;
+  }
+  
+  
+  function QueueToString() : String
+  {
+    var output = StringBuilder();
+    output.Write("{");
+    
+    foreach (var index in this.IndexQueue)
+      output.Write(" `index as PieceType`");
+    
+    output.Write(" }");
+    
+    return output.ToString();
   }
   
   

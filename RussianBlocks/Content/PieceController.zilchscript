@@ -6,6 +6,19 @@ class PieceController : ZilchComponent
   [Dependency] var Transform : Transform;
   
   
+  [Static]
+  var Colors : Array[Real4] = Array[Real4]()
+  {
+    Color.FromHexString("00BFBF"),  //I,
+    Color.FromHexString("FFD500"),  //O,
+    Color.FromHexString("8F00BF"),  //T,
+    Color.FromHexString("FF5500"),  //L,
+    Color.FromHexString("0030BF"),  //J,
+    Color.FromHexString("00BF80"),  //S,
+    Color.FromHexString("FF0011"),  //Z,
+  };
+  
+  
   [Property]
   var Type : PieceType = PieceType.T;
   
@@ -39,6 +52,8 @@ class PieceController : ZilchComponent
   var State : PieceControlState = PieceControlState.Active;
   
   var CastFilter : CastFilter;
+  var StickTimer : Real = 0;
+  var StickDuration : Real = 0.5;
   
   var GraphicalX : Real
   {
@@ -110,8 +125,9 @@ class PieceController : ZilchComponent
   function OnGravity(event : GravityEvent)
   {
     var magnitude = event.Magnitude;
+    var softDrop = Zero.Keyboard.KeyIsDown(this.SoftDropKey);
     
-    if (Zero.Keyboard.KeyIsDown(this.SoftDropKey))
+    if (softDrop)
       magnitude = Math.Max(magnitude, this.SoftDropGravityMagnitude);
     
     this.GraphicalTransform.WorldTranslation += magnitude * event.Direction * event.Dt;
@@ -125,7 +141,12 @@ class PieceController : ZilchComponent
     {
       this.ColliderY = oldColliderY;
       this.GraphicalY = oldColliderY;
-      this.Stick();
+      var dt = event.Dt;
+      
+      if (softDrop)
+        dt *= 4;
+      
+      this.AttemptStick(dt);
     }
   }
   
@@ -172,6 +193,15 @@ class PieceController : ZilchComponent
     var angle = Math.Pi / 2;
     
     this.RotationAttemptHelper(angle);
+  }
+  
+  
+  function AttemptStick(dt : Real)
+  {
+    if (this.StickTimer >= this.StickDuration)
+      this.Stick();
+    else
+      this.StickTimer += dt;
   }
   
   
@@ -240,6 +270,8 @@ class PieceController : ZilchComponent
     this.MovementActions.Cancel();
     this.MovementActions = Action.Group(this.GraphicalActions);
     Action.Property(this.MovementActions, @this.GraphicalX, targetX, this.MovementDuration, Ease.Linear);
+    
+    this.StickTimer = 0;
   }
   
   
@@ -250,6 +282,8 @@ class PieceController : ZilchComponent
     this.RotationActions.Cancel();
     this.RotationActions = Action.Group(this.GraphicalActions);
     Action.Property(this.RotationActions, @this.GraphicalTransform.EulerAngles, targetAngles, this.RotationDuration, Ease.Linear);
+    
+    this.StickTimer = 0;
   }
   
   

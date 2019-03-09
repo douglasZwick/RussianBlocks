@@ -1,16 +1,16 @@
 [Version:1]
 Cog [InheritId:"5ce16f33c746efb4:Piece"]
 {
-	var Name = "OPiece"
+	var Name = "LPiece"
 	Transform 
 	{
-		var Translation = Real3{-13, 4, 0}
+		var Translation = Real3{-18, 3, 0}
 		var Rotation = Quaternion{0, 0, 0, 1}
 		var Scale = Real3{1, 1, 1}
 	}
 	PieceController 
 	{
-		var Type = PieceType.O
+		var Type = PieceType.L
 	}
 	Hierarchy 
 	{
@@ -18,28 +18,28 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 		{
 			Hierarchy [ChildOrderOverride]
 			{
+				Cog [Id:0x5c1d998d0629a4fc]
+				{
+					Sprite 
+					{
+						var VertexColor = Real4{1, 0.333333373, 0, 1}
+					}
+				}
 				Cog [Id:0x5c1d998d0629a4b8]
 				{
 					Sprite 
 					{
-						var VertexColor = Real4{1, 0.833333373, 0, 1}
+						var VertexColor = Real4{1, 0.333333373, 0, 1}
 					}
 				}
 				Cog [Id:0x5c1d998d0629a56b]
 				{
 					Sprite 
 					{
-						var VertexColor = Real4{1, 0.833333373, 0, 1}
+						var VertexColor = Real4{1, 0.333333373, 0, 1}
 					}
 				}
 				Cog [Id:0x5c1d998d0629a535]
-				{
-					Sprite 
-					{
-						var VertexColor = Real4{1, 0.833333373, 0, 1}
-					}
-				}
-				Cog [Id:0x5c1d998d0629a4fc]
 				{
 					Transform 
 					{
@@ -47,7 +47,7 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 					}
 					Sprite 
 					{
-						var VertexColor = Real4{1, 0.833333373, 0, 1}
+						var VertexColor = Real4{1, 0.333333373, 0, 1}
 					}
 				}
 			}
@@ -56,6 +56,20 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 		{
 			Hierarchy [ChildOrderOverride]
 			{
+				Cog [Id:0x5c1d9ae7e49080d9]
+				{
+					Sprite 
+					{
+						var Visible = false
+					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Type = PieceType.L
+						}
+					}
+				}
 				Cog [Id:0x5c1d9ae7e4908090]
 				{
 					Sprite 
@@ -66,8 +80,8 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 					{
 						var Data = SquareData
 						{
-							var LtConnection = false
-							var Type = PieceType.O
+							var UpConnection = false
+							var Type = PieceType.L
 						}
 					}
 				}
@@ -82,30 +96,15 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 						var Data = SquareData
 						{
 							var UpConnection = true
-							var Type = PieceType.O
+							var Type = PieceType.L
 						}
 					}
 				}
 				Cog [Id:0x5c1d9ae7e4908115]
 				{
-					Sprite 
-					{
-						var Visible = false
-					}
-					Atom 
-					{
-						var Data = SquareData
-						{
-							var RtConnection = true
-							var Type = PieceType.O
-						}
-					}
-				}
-				Cog [Id:0x5c1d9ae7e49080d9]
-				{
 					Transform 
 					{
-						var Translation = Real3{0.999999881, 1.00000024, 0}
+						var Translation = Real3{1, 1.00000012, 0}
 					}
 					Sprite 
 					{
@@ -115,10 +114,7 @@ Cog [InheritId:"5ce16f33c746efb4:Piece"]
 					{
 						var Data = SquareData
 						{
-							var RtConnection = false
-							var LtConnection = true
-							var DnConnection = true
-							var Type = PieceType.O
+							var Type = PieceType.L
 						}
 					}
 				}
