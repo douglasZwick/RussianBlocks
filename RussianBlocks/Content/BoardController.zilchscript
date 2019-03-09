@@ -13,6 +13,7 @@ class BoardController : ZilchComponent
   var NewPieceSpawnPosition : Real3 = Real3(0, 10, 0);
   var PieceArchetype : Archetype = Archetype.Piece;
   var StaticSquareArchetype : Archetype = Archetype.StaticSquare;
+  var LineIdentificationSquareArchetype : Archetype = Archetype.LineIdentificationSquare;
   
   var GridSize : Integer2 = Integer2(10, 20);
   var Grid : Array[Array[SquareData]];
@@ -25,16 +26,16 @@ class BoardController : ZilchComponent
     
     this.Grid = Array[Array[SquareData]]();
     
-    for (var i = 0; i < this.GridSize.Y; ++i)
+    for (var i = 0; i < this.GridSize.X; ++i)
     {
-      var row = Array[SquareData]();
+      var column = Array[SquareData]();
       
-      for (var j = 0; j < this.GridSize.X; ++j)
+      for (var j = 0; j < this.GridSize.Y; ++j)
       {
-        row.Add(SquareData());
+        column.Add(SquareData());
       }
       
-      this.Grid.Add(row);
+      this.Grid.Add(column);
     }
     
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
@@ -95,7 +96,38 @@ class BoardController : ZilchComponent
   
   function CheckForLines()
   {
+    var linesCleared = 0;
     
+    for (var y = 0; y < this.GridSize.Y; ++y)
+    {
+      var filledSquares = Array[Integer2]();
+      
+      for (var x = 0; x < this.GridSize.X; ++x)
+      {
+        var data = this.Grid[x][y];
+        
+        if (data.Filled)
+        {
+          var index = Integer2(x, y);
+          filledSquares.Add(index);
+          var position = this.GridIndexToWorldPosition(index);
+          var lineIdentificationSquare = this.Space.CreateAtPosition(this.LineIdentificationSquareArchetype, position);
+        }
+      }
+      
+      if (filledSquares.Count >= this.GridSize.X)
+      {
+        ++linesCleared;
+        
+        foreach (var index in filledSquares)
+        {
+          //var position = this.GridIndexToWorldPosition(index);
+          //var lineIdentificationSquare = this.Space.CreateAtPosition(this.LineIdentificationSquareArchetype, position);
+        }
+      }
+    }
+    
+    Console.WriteLine(linesCleared);
   }
   
   

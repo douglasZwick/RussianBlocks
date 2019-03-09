@@ -1,12 +1,12 @@
 [Version:1]
 Cog 
 {
-	var Name = "StaticSquare"
+	var Name = "LineIdentificationSquare"
 	Transform 
 	{
-		var Translation = Real3{0, 0, 0}
+		var Translation = Real3{-14.0357962, 2.96786499, 0}
 		var Scale = Real3{0.899999976, 0.899999976, 0.899999976}
-		var Rotation = Quaternion{0, 0, -5.96046377e-08, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
 	}
 	Sprite 
 	{
@@ -18,7 +18,7 @@ Cog
 		var LocalAabbHalfExtents = Real3{1, 1, 1}
 		var GroupSortValue = 0
 		var Material = "582c50d330d372c3:AdditiveSprite"
-		var VertexColor = Real4{1, 0, 0.0500001907, 1}
+		var VertexColor = Real4{0, 1, 0.5, 1}
 		var GeometryMode = SpriteGeometryMode.ZPlane
 		var SpriteSource = "5586f579ca73ecc2:SquareBordered"
 		var FlipX = false

@@ -10,6 +10,7 @@ Cog
 	}
 	PieceController 
 	{
+		var Type = PieceType.T
 		var MoveLeftKey = Keys.Left
 		var MoveRightKey = Keys.Right
 		var RotateCWKey = Keys.D
@@ -264,6 +265,18 @@ Cog
 						var Offset = Real3{0, 0, 0}
 						var HalfSize = Real3{0.5, 0.5, 0.5}
 					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Filled = true
+							var RtConnection = true
+							var LtConnection = true
+							var UpConnection = true
+							var DnConnection = false
+							var Type = PieceType.T
+						}
+					}
 				}
 				Cog [Id:0x5c1d9ae7e49080d9]
 				{
@@ -301,6 +314,18 @@ Cog
 						var CollisionGroup = "4e740859314e5515:DefaultGroup"
 						var Offset = Real3{0, 0, 0}
 						var HalfSize = Real3{0.5, 0.5, 0.5}
+					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Filled = true
+							var RtConnection = true
+							var LtConnection = false
+							var UpConnection = false
+							var DnConnection = false
+							var Type = PieceType.T
+						}
 					}
 				}
 				Cog [Id:0x5c1d9ae7e4908115]
@@ -340,6 +365,18 @@ Cog
 						var Offset = Real3{0, 0, 0}
 						var HalfSize = Real3{0.5, 0.5, 0.5}
 					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Filled = true
+							var RtConnection = false
+							var LtConnection = false
+							var UpConnection = false
+							var DnConnection = true
+							var Type = PieceType.T
+						}
+					}
 				}
 				Cog [Id:0x5c1d9ae7e490814e]
 				{
@@ -377,6 +414,18 @@ Cog
 						var CollisionGroup = "4e740859314e5515:DefaultGroup"
 						var Offset = Real3{0, 0, 0}
 						var HalfSize = Real3{0.5, 0.5, 0.5}
+					}
+					Atom 
+					{
+						var Data = SquareData
+						{
+							var Filled = true
+							var RtConnection = false
+							var LtConnection = true
+							var UpConnection = false
+							var DnConnection = false
+							var Type = PieceType.T
+						}
 					}
 				}
 			}

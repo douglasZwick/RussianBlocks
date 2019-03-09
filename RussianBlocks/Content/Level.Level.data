@@ -231,10 +231,25 @@ Level
 		{
 			var GravityMagnitude = 1
 			var GravityDirection = Real3{0, -1, 0}
+			var GridOriginPath = CogPath
+			{
+				var Path = "GridOrigin"
+				var ErrorOnResolveToNull = false
+				var ErrorOnPathCantCompute = false
+				var ErrorOnDirectLinkFail = false
+				var UpdateCogOnPathChange = true
+				var UpdatePathOnCogChange = true
+				var UpdateCogOnInitialize = true
+				var ResolvedNullErrorOccurred = false
+				var Cog = 6
+				var PathPreference0 = CogPathPreference.CogRelative
+				var PathPreference1 = CogPathPreference.SpaceRelative
+				var PathPreference2 = CogPathPreference.Absolute
+			}
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x5ce19cc4f0036d8f][ContextId:6]
+			Cog [Id:0x5ce19cc4f0036d8f][ContextId:7]
 			{
 				var Name = "Walls"
 				Transform 
@@ -245,7 +260,7 @@ Level
 				}
 				Hierarchy 
 				{
-					Cog [Id:0x5ce19ccdf1b9ad57][ContextId:7]
+					Cog [Id:0x5ce19ccdf1b9ad57][ContextId:8]
 					{
 						var Name = "Wall"
 						Transform 
@@ -288,7 +303,7 @@ Level
 							var HalfSize = Real3{1, 10, 0.5}
 						}
 					}
-					Cog [Id:0x5ce19ccdf1b9ad88][ContextId:8]
+					Cog [Id:0x5ce19ccdf1b9ad88][ContextId:9]
 					{
 						var Name = "Wall"
 						Transform 
@@ -331,7 +346,7 @@ Level
 							var HalfSize = Real3{1, 10, 0.5}
 						}
 					}
-					Cog [Id:0x5ce19ccdf1b9adab][ContextId:9]
+					Cog [Id:0x5ce19ccdf1b9adab][ContextId:10]
 					{
 						var Name = "Wall"
 						Transform 
@@ -374,7 +389,7 @@ Level
 							var HalfSize = Real3{1, 1, 0.5}
 						}
 					}
-					Cog [Id:0x5ce19ccdf1b9adcc][ContextId:10]
+					Cog [Id:0x5ce19ccdf1b9adcc][ContextId:11]
 					{
 						var Name = "Wall"
 						Transform 
@@ -417,7 +432,7 @@ Level
 							var HalfSize = Real3{5, 1, 0.5}
 						}
 					}
-					Cog [Id:0x5ce19ccdf1b9aded][ContextId:11]
+					Cog [Id:0x5ce19ccdf1b9aded][ContextId:12]
 					{
 						var Name = "Wall"
 						Transform 
@@ -462,7 +477,7 @@ Level
 					}
 				}
 			}
-			Cog [Id:0x5ce19ca1c91aa776][ContextId:12]
+			Cog [Id:0x5ce19ca1c91aa776][ContextId:6]
 			{
 				var Name = "GridOrigin"
 				Transform 
@@ -481,75 +496,6 @@ Level
 			var Translation = Real3{0, 10, 0}
 			var Rotation = Quaternion{0, 0, 0, 1}
 			var Scale = Real3{1, 1, 1}
-		}
-		Hierarchy 
-		{
-			Cog [Id:0x5c1d998f06547663][ContextId:14]
-			{
-				Hierarchy [ChildOrderOverride]
-				{
-					Cog [Id:0x5c1d9ae7e4908090][ContextId:15]
-					{
-						Atom [LocallyAdded]
-						{
-							var Data = SquareData
-							{
-								var Filled = true
-								var RtConnection = true
-								var LtConnection = true
-								var UpConnection = true
-								var DnConnection = false
-								var Type = PieceType.T
-							}
-						}
-					}
-					Cog [Id:0x5c1d9ae7e49080d9][ContextId:16]
-					{
-						Atom [LocallyAdded]
-						{
-							var Data = SquareData
-							{
-								var Filled = true
-								var RtConnection = true
-								var LtConnection = false
-								var UpConnection = false
-								var DnConnection = false
-								var Type = PieceType.T
-							}
-						}
-					}
-					Cog [Id:0x5c1d9ae7e4908115][ContextId:17]
-					{
-						Atom [LocallyAdded]
-						{
-							var Data = SquareData
-							{
-								var Filled = true
-								var RtConnection = false
-								var LtConnection = false
-								var UpConnection = false
-								var DnConnection = true
-								var Type = PieceType.T
-							}
-						}
-					}
-					Cog [Id:0x5c1d9ae7e490814e][ContextId:18]
-					{
-						Atom [LocallyAdded]
-						{
-							var Data = SquareData
-							{
-								var Filled = true
-								var RtConnection = false
-								var LtConnection = true
-								var UpConnection = false
-								var DnConnection = false
-								var Type = PieceType.T
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 }
