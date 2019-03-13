@@ -1,0 +1,173 @@
+class BoardStructure : ZilchComponent
+{
+  [Dependency] var BoardController : BoardController;
+  
+  
+  [Property]
+  var WallThickness : Real = 2;
+  [Property]
+  var BackgroundLineThickness : Real = 0.1;
+  [Property][Group("Paths")]
+  var WallsRootPath : CogPath = CogPath("Walls");
+  [Property][Group("Paths")]
+  var BGLinesHorizontalRootPath = CogPath("Background/HorizontalLines");
+  [Property][Group("Paths")]
+  var BGLinesVerticalRootPath = CogPath("Background/VerticalLines");
+  [Property][Group("Archetypes")]
+  var WallArchetype : Archetype = Archetype.Wall;
+  [Property][Group("Archetypes")]
+  var BackgroundLineArchetype : Archetype = Archetype.BackgroundLine;
+  
+  var GridOrigin : Real3    { get { return this.BoardController.GridOrigin; }}
+  var GridSize   : Integer2 { get { return this.BoardController.GridSize; }}
+  var SquareSize : Real2    { get { return this.BoardController.SquareSize; }}
+  
+  var WallsRoot : Cog;
+  var BGLinesHorizontalRoot : Cog;
+  var BGLinesVerticalRoot : Cog;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.WallsRoot = this.WallsRootPath.Cog;
+    this.BGLinesHorizontalRoot = this.BGLinesHorizontalRootPath.Cog;
+    this.BGLinesVerticalRoot = this.BGLinesVerticalRootPath.Cog;
+    
+    this.BoardSetup();
+  }
+  
+  
+  function BoardSetup()
+  {
+    this.CreateWalls();
+    this.CreateBackgroundLines();
+  }
+  
+  
+  function CreateWalls()
+  {
+    var bottomWallWidth = this.GridSize.X * this.SquareSize.X;
+    var verticalWallHeight = this.GridSize.Y * this.SquareSize.Y;
+    
+    // create left wall
+    var xOffset = -(this.WallThickness + this.SquareSize.X) / 2;
+    var yOffset = -this.SquareSize.Y / 2;
+    var zOffset = 0;
+    var leftOffset = Real3(xOffset, yOffset, zOffset);
+    var leftPosition = this.GridOrigin + leftOffset;
+    var leftWall = this.Space.CreateAtPosition(this.WallArchetype, leftPosition);
+    var leftWallArea = leftWall.Area;
+    var verticalAreaOrigin = Location.BottomCenter;
+    var verticalAreaSize = Real2(this.WallThickness, verticalWallHeight);
+    leftWallArea.Origin = verticalAreaOrigin;
+    leftWallArea.Size = verticalAreaSize;
+    
+    var verticalColliderOffset = leftWall.Transform.TransformPointInverse(Real3(leftWallArea.WorldCenter, 0));
+    var verticalColliderSize = Real3(verticalAreaSize, 1);
+    var leftWallCollider = leftWall.BoxCollider;
+    leftWallCollider.Offset = verticalColliderOffset;
+    leftWallCollider.Size = verticalColliderSize;
+    
+    var rightOffsetFromLeft = Real3.XAxis * (bottomWallWidth + this.WallThickness);
+    
+    // create right wall
+    var rightPosition = leftPosition + rightOffsetFromLeft;
+    var rightWall = this.Space.CreateAtPosition(this.WallArchetype, rightPosition);
+    var rightWallArea = rightWall.Area;
+    rightWallArea.Origin = verticalAreaOrigin;
+    rightWallArea.Size = verticalAreaSize;
+    
+    var rightWallCollider = rightWall.BoxCollider;
+    rightWallCollider.Offset = verticalColliderOffset;
+    rightWallCollider.Size = verticalColliderSize;
+    
+    // create left corner
+    var leftCornerPosition = leftPosition - Real3.YAxis * this.WallThickness / 2;
+    var cornerAreaOrigin = Location.Center;
+    var cornerAreaSize = Real2(this.WallThickness);
+    var leftCorner = this.Space.CreateAtPosition(this.WallArchetype, leftCornerPosition);
+    var leftCornerArea = leftCorner.Area;
+    leftCornerArea.Origin = cornerAreaOrigin;
+    leftCornerArea.Size = cornerAreaSize;
+    
+    var cornerColliderSize = Real3(this.WallThickness, this.WallThickness, 1);
+    leftCorner.BoxCollider.Size = cornerColliderSize;
+    
+    // create right corner
+    var rightCornerPosition = leftCornerPosition + rightOffsetFromLeft;
+    var rightCorner = this.Space.CreateAtPosition(this.WallArchetype, rightCornerPosition);
+    var rightCornerArea = rightCorner.Area;
+    rightCornerArea.Origin = cornerAreaOrigin;
+    rightCornerArea.Size = cornerAreaSize;
+    
+    rightCorner.BoxCollider.Size = cornerColliderSize;
+    
+    // create bottom
+    var bottomPosition = (leftCornerPosition + rightCornerPosition) / 2;
+    var bottomWall = this.Space.CreateAtPosition(this.WallArchetype, bottomPosition);
+    var bottomWallArea = bottomWall.Area;
+    var bottomAreaOrigin = Location.Center;
+    var bottomAreaSize = Real2(bottomWallWidth, this.WallThickness);
+    bottomWallArea.Origin = bottomAreaOrigin;
+    bottomWallArea.Size = bottomAreaSize;
+    
+    bottomWall.BoxCollider.Size = Real3(bottomWallWidth, this.WallThickness, 1);
+    
+    leftWall.AttachTo(this.WallsRoot);
+    rightWall.AttachTo(this.WallsRoot);
+    leftCorner.AttachTo(this.WallsRoot);
+    rightCorner.AttachTo(this.WallsRoot);
+    bottomWall.AttachTo(this.WallsRoot);
+  }
+  
+  
+  function CreateBackgroundLines()
+  {
+    this.CreateHorizontalLines();
+    this.CreateVerticalLines();
+  }
+  
+  
+  function CreateHorizontalLines()
+  {
+    var lineWidth = this.GridSize.X * this.SquareSize.X;
+    var xPosition = (2 * this.GridOrigin.X + lineWidth - 1) / 2;
+    var zPosition = 0;
+    var lineOrigin = Location.Center;
+    var lineSize = Real2(lineWidth, this.BackgroundLineThickness);
+    var bottomY = this.GridOrigin.Y - this.SquareSize.Y / 2;
+    
+    for (var i = 0; i < this.GridSize.Y + 1; ++i)
+    {
+      var yPosition = bottomY + i * this.SquareSize.Y;
+      var linePosition = Real3(xPosition, yPosition, zPosition);
+      var line = this.Space.CreateAtPosition(this.BackgroundLineArchetype, linePosition);
+      var lineArea = line.Area;
+      lineArea.Origin = lineOrigin;
+      lineArea.Size = lineSize;
+      line.AttachTo(this.BGLinesHorizontalRoot);
+    }
+  }
+  
+  
+  function CreateVerticalLines()
+  {
+    var lineHeight = this.GridSize.Y * this.SquareSize.Y;
+    var yPosition = this.GridOrigin.Y - this.SquareSize.Y / 2;
+    var zPosition = 0;
+    var lineOrigin = Location.BottomCenter;
+    var lineSize = Real2(this.BackgroundLineThickness, lineHeight);
+    var leftX = this.GridOrigin.X - this.SquareSize.X / 2;
+    
+    for (var i = 0; i < this.GridSize.X + 1; ++i)
+    {
+      var xPosition = leftX + i * this.SquareSize.X;
+      var linePosition = Real3(xPosition, yPosition, zPosition);
+      var line = this.Space.CreateAtPosition(this.BackgroundLineArchetype, linePosition);
+      var lineArea = line.Area;
+      lineArea.Origin = lineOrigin;
+      lineArea.Size = lineSize;
+      line.AttachTo(this.BGLinesVerticalRoot);
+    }
+  }
+}

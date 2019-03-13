@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "BackgroundLine"
+		var ResourceId = 0x5ce6a88a30f7492c
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

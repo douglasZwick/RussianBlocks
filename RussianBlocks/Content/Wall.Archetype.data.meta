@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "Wall"
+		var ResourceId = 0x5ce6a8162640ca52
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

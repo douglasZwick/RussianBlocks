@@ -7,7 +7,7 @@ class BoardController : ZilchComponent
   var GravityMagnitude : Real = 1;
   [Property]
   var GravityDirection : Real3 = -Real3.YAxis;
-  [Property]
+  [Property][Group("Paths")]
   var GridOriginPath : CogPath = CogPath("GridOrigin");
   
   var NewPieceSpawnPosition : Real3 = Real3(0, 10, 0);
@@ -26,6 +26,7 @@ class BoardController : ZilchComponent
   var LineIdentificationSquareArchetype : Archetype = Archetype.LineIdentificationSquare;
   
   var GridSize : Integer2 = Integer2(10, 20);
+  var SquareSize : Real2 = Real2.One;
   var Grid : Array[Array[SquareData]];
   var GridOrigin : Real3;
   

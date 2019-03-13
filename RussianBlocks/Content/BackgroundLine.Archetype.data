@@ -1,0 +1,35 @@
+[Version:1]
+Cog 
+{
+	var Name = "BackgroundLine"
+	Transform 
+	{
+		var Translation = Real3{-5.49999952, -10.5, 0}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	Sprite 
+	{
+		var Visible = true
+		var ViewCulling = true
+		var VisibilityEvents = true
+		var OverrideBoundingBox = false
+		var LocalAabbCenter = Real3{0, 0, 0}
+		var LocalAabbHalfExtents = Real3{1, 1, 1}
+		var GroupSortValue = 0
+		var Material = "582c50d330d372c3:AdditiveSprite"
+		var VertexColor = Real4{1, 1, 1, 0.0199999996}
+		var GeometryMode = SpriteGeometryMode.ZPlane
+		var SpriteSource = "5275aa4d802dd6dc:Square"
+		var FlipX = false
+		var FlipY = false
+		var AnimationActive = true
+		var AnimationSpeed = 1
+		var StartFrame = 0
+	}
+	Area 
+	{
+		var Size = Real2{10, 0.100000001}
+		var Origin = Location.CenterLeft
+	}
+}
