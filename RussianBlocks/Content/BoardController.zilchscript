@@ -27,7 +27,7 @@ class BoardController : ZilchComponent
   
   var GridSize : Integer2 = Integer2(10, 20);
   var SquareSize : Real2 = Real2.One;
-  var Grid : Array[Array[SquareData]];
+  var Grid : SquareGrid;
   var GridOrigin : Real3;
   
   var IndexQueue : Array[Integer] = Array[Integer]();
@@ -38,21 +38,8 @@ class BoardController : ZilchComponent
   
   function Initialize(init : CogInitializer)
   {
+    this.Grid = SquareGrid(this.GridSize);
     this.GridOrigin = this.GridOriginPath.Transform.WorldTranslation;
-    
-    this.Grid = Array[Array[SquareData]]();
-    
-    for (var i = 0; i < this.GridSize.X; ++i)
-    {
-      var column = Array[SquareData]();
-      
-      for (var j = 0; j < this.GridSize.Y; ++j)
-      {
-        column.Add(SquareData());
-      }
-      
-      this.Grid.Add(column);
-    }
     
     this.AddBagToQueue();
     this.AddBagToQueue();
@@ -108,7 +95,7 @@ class BoardController : ZilchComponent
       
       data.StaticSquare = staticSquare;
       var index = this.WorldPositionToGridIndex(position);
-      this.Grid[index.X][index.Y] = data;
+      this.Grid[index.X, index.Y] = data;
     }
   }
   
@@ -331,5 +318,83 @@ class SquareData : ZilchObject
     var lt = this.LtConnection as Integer;
     var dn = this.DnConnection as Integer;
     return String.FormatC(format, filled, rt, up, lt, dn, this.Type, this.StaticSquare);
+  }
+}
+
+
+class GridRow : ZilchObject
+{
+  var Squares : Array[SquareData];
+  var Size : Integer;
+  
+  
+  constructor(size : Integer) : base()
+  {
+    this.Squares = Array[SquareData](size);
+    this.Size = size;
+    
+    for (var i = 0; i < size; ++i)
+    {
+      this.Squares[i] = SquareData();
+    }
+  }
+  
+  
+  function Get(x : Integer) : SquareData
+  {
+    return this.Squares[x];
+  }
+  
+  
+  function LineCheck() : Boolean
+  {
+    foreach (var squareData in this.Squares)
+      if (!squareData.Filled)
+        return false;
+    
+    return true;
+  }
+}
+
+
+class SquareGrid : ZilchObject
+{
+  var Rows : Array[GridRow];
+  var Size : Integer2;
+  
+  
+  constructor(size : Integer2) : base()
+  {
+    this.Rows = Array[GridRow](size.Y);
+    this.Size = size;
+    
+    for (var i = 0; i < size.Y; ++i)
+    {
+      this.Rows[i] = GridRow(size.X);
+    }
+  }
+  
+  
+  function Get(row : Integer) : GridRow
+  {
+    return this.Rows[row];
+  }
+  
+  
+  function Get(x : Integer, y : Integer) : SquareData
+  {
+    return this[y][x];
+  }
+  
+  
+  function Set(x : Integer, y : Integer, squareData : SquareData)
+  {
+    this[y].Squares[x] = squareData;
+  }
+  
+  
+  function Set(index : Integer2, squareData : SquareData)
+  {
+    this[index.X, index.Y] = squareData;
   }
 }
