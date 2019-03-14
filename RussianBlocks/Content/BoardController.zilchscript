@@ -95,7 +95,7 @@ class BoardController : ZilchComponent
       
       data.StaticSquare = staticSquare;
       var index = this.WorldPositionToGridIndex(position);
-      this.Grid[index.X, index.Y] = data;
+      this.Grid[index] = data;
     }
   }
   
@@ -116,29 +116,46 @@ class BoardController : ZilchComponent
   {
     var linesCleared = 0;
     
-    for (var y = 0; y < this.GridSize.Y; ++y)
-    {
-      var filledSquares = Array[Integer2]();
+    //for (var y = 0; y < this.GridSize.Y; ++y)
+    //{
+    //  var filledSquares = Array[Integer2]();
       
-      for (var x = 0; x < this.GridSize.X; ++x)
-      {
-        var data = this.Grid[x][y];
+    //  for (var x = 0; x < this.GridSize.X; ++x)
+    //  {
+    //    var data = this.Grid[x, y];
         
-        if (data.Filled)
-        {
-          var index = Integer2(x, y);
-          filledSquares.Add(index);
-        }
-      }
+    //    if (data.Filled)
+    //    {
+    //      var index = Integer2(x, y);
+    //      filledSquares.Add(index);
+    //    }
+    //  }
       
-      if (filledSquares.Count >= this.GridSize.X)
+    //  if (filledSquares.Count >= this.GridSize.X)
+    //  {
+    //    ++linesCleared;
+        
+    //    foreach (var index in filledSquares)
+    //    {
+    //      this.Grid[index].Filled = false;
+    //      var square = this.Grid[index].StaticSquare;
+    //      if (square != null)
+    //        square.Destroy();
+    //    }
+    //  }
+    //}
+    
+    foreach (var row in this.Grid.Rows)
+    {
+      if (row.LineCheck())
       {
+        row.Cleared = true;
         ++linesCleared;
         
-        foreach (var index in filledSquares)
+        for (var i = 0; i < row.Squares.Count; ++i)
         {
-          this.Grid[index.X][index.Y].Filled = false;
-          var square = this.Grid[index.X][index.Y].StaticSquare;
+          row.Squares[i].Filled = false;
+          var square = row.Squares[i].StaticSquare;
           if (square != null)
             square.Destroy();
         }
@@ -162,6 +179,69 @@ class BoardController : ZilchComponent
       
       Console.WriteLine(clearString);
       Console.WriteLine("Total: `this.LineCount`");
+      
+      for (var y = 0; y < this.GridSize.Y; ++y)
+      {
+        var row = this.Grid.Rows[y];
+        
+        if (row.Cleared)
+        {
+          for (var i = y - 1; i >= 0; --i)
+          {
+            var otherRow = this.Grid.Rows[i];
+            
+            if (otherRow.Cleared)
+              continue;
+            
+            // i think i should do some kind of sorting algorithm here
+            // if only i knew a CS expert who knew a lot about sorting algorithms!!!
+          }
+        }
+      }
+    }
+  }
+  
+  
+  function SwapRows(yA : Integer, yB : Integer)
+  {
+    var rowA = this.Grid[yA];
+    var rowB = this.Grid[yB];
+    this.Grid[yA] = rowB;
+    this.Grid[yB] = rowA;
+    
+    for (var x = 0; x < rowA.Squares.Count; ++x)
+    {
+      var staticSquareA = rowA.Squares[x].StaticSquare;
+      var staticSquareB = rowB.Squares[x].StaticSquare;
+      
+      if (staticSquareA == null)
+      {
+        if (staticSquareB == null)
+        {
+          // nothing to do here
+        }
+        else
+        {
+          var gridIndex = Integer2(x, yA);
+          var worldPosition = this.GridIndexToWorldPosition(gridIndex);
+          staticSquareB.Transform.WorldTranslation = worldPosition;
+        }
+      }
+      else
+      {
+        if (staticSquareB == null)
+        {
+          var gridIndex = Integer2(x, yB);
+          var worldPosition = this.GridIndexToWorldPosition(gridIndex);
+          staticSquareA.Transform.WorldTranslation = worldPosition;
+        }
+        else
+        {
+          var temp = staticSquareA.Transform.WorldTranslation;
+          staticSquareA.Transform.WorldTranslation = staticSquareB.Transform.WorldTranslation;
+          staticSquareB.Transform.WorldTranslation = temp;
+        }
+      }
     }
   }
   
@@ -326,6 +406,7 @@ class GridRow : ZilchObject
 {
   var Squares : Array[SquareData];
   var Size : Integer;
+  var Cleared : Boolean = false;
   
   
   constructor(size : Integer) : base()
@@ -384,6 +465,18 @@ class SquareGrid : ZilchObject
   function Get(x : Integer, y : Integer) : SquareData
   {
     return this[y][x];
+  }
+  
+  
+  function Get(index : Integer2) : SquareData
+  {
+    return this[index.X, index.Y];
+  }
+  
+  
+  function Set(row : Integer, gridRow : GridRow)
+  {
+    this.Rows[row] = gridRow;
   }
   
   

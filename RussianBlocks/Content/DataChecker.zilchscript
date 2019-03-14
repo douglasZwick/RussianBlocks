@@ -31,7 +31,7 @@ class DataChecker : ZilchComponent
       return;
     
     var index = this.BoardController.WorldPositionToGridIndex(mousePosition);
-    var data = this.BoardController.Grid[index.X][index.Y];
+    var data = this.BoardController.Grid[index];
     var dataString = data.ToString();
     Console.WriteLine("Data at `index`: `dataString`");
   }
