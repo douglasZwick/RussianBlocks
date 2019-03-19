@@ -1,0 +1,85 @@
+class PieceQueue : ZilchComponent
+{
+  var PieceArchetypes : Array[Archetype] = Array[Archetype]()
+  {
+    Archetype.IPiece,
+    Archetype.OPiece,
+    Archetype.TPiece,
+    Archetype.LPiece,
+    Archetype.JPiece,
+    Archetype.SPiece,
+    Archetype.ZPiece,
+  };
+  
+  var IndexQueue : Array[Integer] = Array[Integer]();
+  var RNG : Random = Random();
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+  }
+  
+  
+  function CreateNewPiece(position : Real3) : Cog
+  {
+    var index = this.IndexQueue[0];
+    this.IndexQueue.RemoveAt(0);
+    var archetype = this.PieceArchetypes[index];
+    var piece = this.Space.CreateAtPosition(archetype, position);
+    
+    if (this.IndexQueue.Count < this.PieceArchetypes.Count)
+      this.AddBagToQueue();
+    
+    return piece;
+  }
+  
+  
+  function AddBagToQueue()
+  {
+    var count = this.PieceArchetypes.Count;
+    var bag = Array[Integer](count);
+    for (var i = 0; i < count; ++i)
+      bag[i] = i;
+    
+    bag.Shuffle(this.RNG);
+    foreach (var index in bag)
+      this.IndexQueue.Add(index);
+  }
+  
+  
+  function QueueToString() : String
+  {
+    var output = StringBuilder();
+    output.Write("{");
+    
+    foreach (var index in this.IndexQueue)
+      output.Write(" `index as PieceType`");
+    
+    output.Write(" }");
+    
+    return output.ToString();
+  }
+}
+
+
+class ArrayExtensions
+{
+  [Extension(typeid(Array[Integer]))]
+  function Shuffle(rng : Random)
+  {
+    var n = this.Count;
+    for (var i = n - 1; i > 0; --i)
+    {
+      var r = rng.DieRoll(i + 1) - 1;
+      ArrayExtensions.SwapArrayElementsByIndex(this, i, r);
+    }
+  }
+  
+  [Static]
+  function SwapArrayElementsByIndex(array : Array[Integer], indexA : Integer, indexB : Integer)
+  {
+    var temp = array[indexA];
+    array[indexA] = array[indexB];
+    array[indexB] = temp;
+  }
+}

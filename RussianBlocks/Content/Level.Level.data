@@ -303,6 +303,9 @@ Level
 		{
 			var CursorArchetype = "5cff4bcf5d7fdb83:DataCheckCursor"
 		}
+		PieceQueue 
+		{
+		}
 		Hierarchy 
 		{
 			Cog [Id:0x5ce19ca1c91aa776][ContextId:6]
