@@ -1,5 +1,13 @@
 class PieceQueue : ZilchComponent
 {
+  [Property]
+  var NextCount : Integer = 7;
+  [Property]
+  var NextPosition : Real3 = Real3(8, 10, 0);
+  [Property]
+  var NextQueueOffset : Real3 = Real3(0.25, -3, 0);
+  
+  
   var PieceArchetypes : Array[Archetype] = Array[Archetype]()
   {
     Archetype.IPiece,
@@ -17,6 +25,16 @@ class PieceQueue : ZilchComponent
   
   function Initialize(init : CogInitializer)
   {
+    this.AddBagToQueue();
+    this.AddBagToQueue();
+    
+    Console.WriteLine(this.QueueToString());
+  }
+  
+  
+  function GetCurrentPiece(position : Real3) : Cog
+  {
+    return this.CreateNewPiece(position);
   }
   
   

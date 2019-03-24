@@ -4,7 +4,7 @@ Cog
 	var Name = "Piece"
 	Transform 
 	{
-		var Translation = Real3{-16, 2, 0}
+		var Translation = Real3{16.1305046, 1.73763561, 0}
 		var Scale = Real3{1, 1, 1}
 		var Rotation = Quaternion{0, 0, 0, 1}
 	}
@@ -59,35 +59,6 @@ Cog
 	}
 	Hierarchy 
 	{
-		Cog [Id:0x5c1dc7f318b6f74b]
-		{
-			var Name = "Sprite"
-			Transform 
-			{
-				var Translation = Real3{0, 0, 0}
-				var Scale = Real3{0.25, 0.25, 1}
-				var Rotation = Quaternion{0, 0, 0, 1}
-			}
-			Sprite 
-			{
-				var Visible = true
-				var ViewCulling = true
-				var VisibilityEvents = true
-				var OverrideBoundingBox = false
-				var LocalAabbCenter = Real3{0, 0, 0}
-				var LocalAabbHalfExtents = Real3{1, 1, 1}
-				var GroupSortValue = 0
-				var Material = "582c50d330d372c3:AdditiveSprite"
-				var VertexColor = Real4{1, 0, 0.250980377, 1}
-				var GeometryMode = SpriteGeometryMode.ZPlane
-				var SpriteSource = "5274db4c2e7c11f9:Circle"
-				var FlipX = false
-				var FlipY = false
-				var AnimationActive = true
-				var AnimationSpeed = 1
-				var StartFrame = 0
-			}
-		}
 		Cog [Id:0x5c1d99bb08182597]
 		{
 			var Name = "GraphicalRoot"

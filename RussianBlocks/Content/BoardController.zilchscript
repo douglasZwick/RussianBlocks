@@ -1,8 +1,15 @@
 class BoardController : ZilchComponent
 {
   sends Gravity : GravityEvent;
+  sends PieceUpdate : UpdateEvent;
   
   
+  [Dependency]
+  var PieceQueue : PieceQueue;
+  
+  
+  [Property]
+  var GridSize : Integer2 = Integer2(10, 20);
   [Property]
   var GravityMagnitude : Real = 1;
   [Property]
@@ -10,7 +17,7 @@ class BoardController : ZilchComponent
   [Property][Group("Paths")]
   var GridOriginPath : CogPath = CogPath("GridOrigin");
   
-  var NewPieceSpawnPosition : Real3 = Real3(0, 10, 0);
+  var NewPieceSpawnPosition : Real3 = Real3(-0.5, 10, 0);
   var PieceArchetype : Archetype = Archetype.Piece;
   var PieceArchetypes : Array[Archetype] = Array[Archetype]()
   {
@@ -25,26 +32,23 @@ class BoardController : ZilchComponent
   var StaticSquareArchetype : Archetype = Archetype.StaticSquare;
   var LineIdentificationSquareArchetype : Archetype = Archetype.LineIdentificationSquare;
   
-  var GridSize : Integer2 = Integer2(10, 20);
   var SquareSize : Real2 = Real2.One;
   var Grid : SquareGrid;
   var GridOrigin : Real3;
+  var ClearedLines : Array[Boolean];
   
   var IndexQueue : Array[Integer] = Array[Integer]();
   var RNG : Random = Random();
   
   var LineCount : Integer = 0;
   
+  var CurrentPiece : Cog;
+  
   
   function Initialize(init : CogInitializer)
   {
     this.Grid = SquareGrid(this.GridSize);
     this.GridOrigin = this.GridOriginPath.Transform.WorldTranslation;
-    
-    this.AddBagToQueue();
-    this.AddBagToQueue();
-    
-    Console.WriteLine(this.QueueToString());
     
     Zero.Connect(init, Events.AllObjectsInitialized, this.OnAllObjectsInitialized);
     Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
@@ -54,17 +58,21 @@ class BoardController : ZilchComponent
   
   function OnAllObjectsInitialized(event : CogInitializerEvent)
   {
-    this.CreateNewPiece();
+    this.CurrentPiece = this.PieceQueue.GetCurrentPiece(this.NewPieceSpawnPosition);
   }
   
   
   function OnLogicUpdate(event : UpdateEvent)
   {
+    if (this.CurrentPiece == null)
+      return;
+    
     var ge = GravityEvent();
     ge.Magnitude = this.GravityMagnitude;
     ge.Direction = this.GravityDirection;
     ge.Dt = event.Dt;
-    this.Space.DispatchEvent(Events.Gravity, ge);
+    this.CurrentPiece.DispatchEvent(Events.Gravity, ge);
+    this.CurrentPiece.DispatchEvent(Events.PieceUpdate, event);
   }
   
   
@@ -75,7 +83,7 @@ class BoardController : ZilchComponent
     this.CheckForSquares();
     this.CheckForLines();
     this.CheckForSquares();
-    this.CreateNewPiece();
+    this.CurrentPiece = this.PieceQueue.GetCurrentPiece(this.NewPieceSpawnPosition);
   }
   
   
@@ -116,37 +124,10 @@ class BoardController : ZilchComponent
   {
     var linesCleared = 0;
     
-    //for (var y = 0; y < this.GridSize.Y; ++y)
-    //{
-    //  var filledSquares = Array[Integer2]();
-      
-    //  for (var x = 0; x < this.GridSize.X; ++x)
-    //  {
-    //    var data = this.Grid[x, y];
-        
-    //    if (data.Filled)
-    //    {
-    //      var index = Integer2(x, y);
-    //      filledSquares.Add(index);
-    //    }
-    //  }
-      
-    //  if (filledSquares.Count >= this.GridSize.X)
-    //  {
-    //    ++linesCleared;
-        
-    //    foreach (var index in filledSquares)
-    //    {
-    //      this.Grid[index].Filled = false;
-    //      var square = this.Grid[index].StaticSquare;
-    //      if (square != null)
-    //        square.Destroy();
-    //    }
-    //  }
-    //}
-    
-    foreach (var row in this.Grid.Rows)
+    for (var y = 0; y < this.GridSize.Y; ++y)
     {
+      var row = this.Grid.Rows[y];
+      
       if (row.LineCheck())
       {
         row.Cleared = true;
@@ -159,6 +140,11 @@ class BoardController : ZilchComponent
           if (square != null)
             square.Destroy();
         }
+      }
+      else if (linesCleared > 0)
+      {
+        var swapIndex = y - linesCleared;
+        this.SwapRows(y, swapIndex);
       }
     }
     
@@ -179,25 +165,6 @@ class BoardController : ZilchComponent
       
       Console.WriteLine(clearString);
       Console.WriteLine("Total: `this.LineCount`");
-      
-      for (var y = 0; y < this.GridSize.Y; ++y)
-      {
-        var row = this.Grid.Rows[y];
-        
-        if (row.Cleared)
-        {
-          for (var i = y - 1; i >= 0; --i)
-          {
-            var otherRow = this.Grid.Rows[i];
-            
-            if (otherRow.Cleared)
-              continue;
-            
-            // i think i should do some kind of sorting algorithm here
-            // if only i knew a CS expert who knew a lot about sorting algorithms!!!
-          }
-        }
-      }
     }
   }
   
@@ -243,63 +210,6 @@ class BoardController : ZilchComponent
         }
       }
     }
-  }
-  
-  
-  function AddBagToQueue()
-  {
-    var count = this.PieceArchetypes.Count;
-    var bag = Array[Integer](count);
-    for (var i = 0; i < count; ++i)
-      bag[i] = i;
-    this.ShuffleArray(bag);
-    foreach (var index in bag)
-      this.IndexQueue.Add(index);
-  }
-  
-  
-  function ShuffleArray(array : Array[Integer])
-  {
-    var n = array.Count;
-    for (var i = n - 1; i > 0; --i)
-    {
-      var r = this.RNG.DieRoll(i + 1) - 1;
-      this.SwapIndices(array, i, r);
-    }
-  }
-  
-  
-  function SwapIndices(array : Array[Integer], a : Integer, b : Integer)
-  {
-    var temp = array[a];
-    array[a] = array[b];
-    array[b] = temp;
-  }
-  
-  
-  function QueueToString() : String
-  {
-    var output = StringBuilder();
-    output.Write("{");
-    
-    foreach (var index in this.IndexQueue)
-      output.Write(" `index as PieceType`");
-    
-    output.Write(" }");
-    
-    return output.ToString();
-  }
-  
-  
-  function CreateNewPiece()
-  {
-    var index = this.IndexQueue[0];
-    this.IndexQueue.RemoveAt(0);
-    var archetype = this.PieceArchetypes[index];
-    var piece = this.Space.CreateAtPosition(archetype, this.NewPieceSpawnPosition);
-    
-    if (this.IndexQueue.Count < this.PieceArchetypes.Count)
-      this.AddBagToQueue();
   }
   
   

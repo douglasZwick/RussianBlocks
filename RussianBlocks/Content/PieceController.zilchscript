@@ -116,9 +116,8 @@ class PieceController : ZilchComponent
     this.MovementActions = Action.Group(this.GraphicalRootPath.Cog.Actions);
     this.RotationActions = Action.Group(this.GraphicalRootPath.Cog.Actions);
     
-    Zero.Connect(this.Space, Events.Gravity, this.OnGravity);
-    Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyInput);
-    Zero.Connect(Zero.Keyboard, Events.KeyRepeated, this.OnKeyInput);
+    Zero.Connect(this.Owner, Events.Gravity, this.OnGravity);
+    Zero.Connect(this.Owner, Events.PieceUpdate, this.OnPieceUpdate);
   }
   
   
@@ -151,15 +150,15 @@ class PieceController : ZilchComponent
   }
   
   
-  function OnKeyInput(event : KeyboardEvent)
+  function OnPieceUpdate(event : UpdateEvent)
   {
-    if      (event.Key == this.MoveLeftKey)
+    if      (Zero.Keyboard.KeyIsPressed(this.MoveLeftKey))
       this.AttemptMoveLeft();
-    else if (event.Key == this.MoveRightKey)
+    else if (Zero.Keyboard.KeyIsPressed(this.MoveRightKey))
       this.AttemptMoveRight();
-    else if (event.Key == this.RotateCWKey)
+    else if (Zero.Keyboard.KeyIsPressed(this.RotateCWKey))
       this.AttemptRotateCW();
-    else if (event.Key == this.RotateCCWKey)
+    else if (Zero.Keyboard.KeyIsPressed(this.RotateCCWKey))
       this.AttemptRotateCCW();
   }
   

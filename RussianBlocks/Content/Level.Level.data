@@ -223,12 +223,16 @@ Level
 		var Name = "Board"
 		Transform 
 		{
-			var Translation = Real3{0, 0, 0}
+			var Translation = Real3{0.5, 0, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
+		PieceQueue 
+		{
+		}
 		BoardController 
 		{
+			var GridSize = Integer2{10, 20}
 			var GravityMagnitude = 1
 			var GravityDirection = Real3{0, -1, 0}
 			var GridOriginPath = CogPath
@@ -302,9 +306,6 @@ Level
 		DataChecker 
 		{
 			var CursorArchetype = "5cff4bcf5d7fdb83:DataCheckCursor"
-		}
-		PieceQueue 
-		{
 		}
 		Hierarchy 
 		{
